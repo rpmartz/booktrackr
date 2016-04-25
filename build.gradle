@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.4.0.M2'
+		springBootVersion = '1.3.3.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -39,4 +39,8 @@ dependencies {
 
 task wrapper(type: Wrapper) {
 	gradleVersion = '2.12'
+}
+
+task stage {
+	dependsOn build
 }
