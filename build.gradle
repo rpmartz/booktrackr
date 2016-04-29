@@ -33,7 +33,9 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('com.h2database:h2:1.4.191')
+	compile('org.postgresql:postgresql:9.4.1208')
+	compile('org.flywaydb:flyway-core')
+	testCompile('com.h2database:h2:1.4.191')
 	testCompile('org.springframework.boot:spring-boot-starter-test') 
 }
 
