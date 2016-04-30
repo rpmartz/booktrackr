@@ -14,4 +14,4 @@ before_script:
 addons:
   postgresql: "9.4"
 script:
-  - ./gradlew check --debug
+  - ./gradlew check --stacktrace
