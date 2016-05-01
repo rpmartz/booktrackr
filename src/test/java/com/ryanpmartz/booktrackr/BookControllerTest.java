@@ -53,13 +53,11 @@ public class BookControllerTest {
 
         when(bookService.getAllBooks()).thenReturn(Arrays.asList(firstBook, secondBook));
 
-        // TODO added jayway json path
         mockMvc.perform(get("/books")).andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$[0].title").value("The First Book"))
                 .andExpect(jsonPath("$[1].title").value("The Second Book"))
                 .andDo(print());
     }
-
 
 }
