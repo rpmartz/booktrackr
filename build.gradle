@@ -29,6 +29,21 @@ repositories {
 	maven { url "https://repo.spring.io/milestone" }
 }
 
+sourceSets {
+	integrationTest {
+		java {
+			compileClasspath += main.output + test.output
+			runtimeClasspath += main.output + test.output
+			srcDir file('src/integration-test/java')
+		}
+		resources.srcDir file('src/integration-test/resources')
+	}
+}
+
+configurations {
+	integrationTestCompile.extendsFrom testCompile
+	integrationTestRuntime.extendsFrom testRuntime
+}
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
@@ -44,6 +59,20 @@ task wrapper(type: Wrapper) {
 	gradleVersion = '2.12'
 }
 
+// do not run tests during Heroku deployment
 task stage {
 	dependsOn bootRepackage
+}
+
+task integrationTest(type: Test) {
+	testClassesDir = sourceSets.integrationTest.output.classesDir
+	classpath = sourceSets.integrationTest.runtimeClasspath
+	outputs.upToDateWhen { false }
+}
+
+check.dependsOn integrationTest
+integrationTest.mustRunAfter test
+
+tasks.withType(Test) {
+	reports.html.destination = file("${reporting.baseDir}/${name}")
 }
