@@ -1,5 +1,6 @@
 package com.ryanpmartz.booktrackr;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ryanpmartz.booktrackr.controller.BookController;
 import com.ryanpmartz.booktrackr.domain.Book;
 import com.ryanpmartz.booktrackr.service.BookService;
@@ -12,10 +13,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -71,5 +75,44 @@ public class BookControllerTest {
                 .andExpect(jsonPath("$.title").value("The First Book"));
 
         mockMvc.perform(get("/books/" + MISSING_BOOK_ID)).andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testCreateBookWithValidJson() throws Exception {
+        Map<String, String> json = new HashMap<>();
+        json.put("title", "Winnie the Pooh");
+        json.put("author", "AA Milne");
+
+        mockMvc.perform(post("/books")
+                .content(new ObjectMapper().writeValueAsString(json)).contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void testThatBookJsonIsValidated() throws Exception {
+        Map<String, String> json = new HashMap<>();
+        ObjectMapper mapper = new ObjectMapper();
+
+        mockMvc.perform(post("/books")
+                        .content(mapper.writeValueAsString(json))
+                        .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isBadRequest());
+
+        json.put("author", "Lee Child");
+
+        mockMvc.perform(post("/books")
+                .content(mapper.writeValueAsString(json))
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isBadRequest());
+
+        json.remove("author");
+        json.put("title", "61 Hours");
+
+        mockMvc.perform(post("/books")
+                .content(mapper.writeValueAsString(json))
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isBadRequest());
+
     }
 }

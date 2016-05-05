@@ -1,5 +1,7 @@
 package com.ryanpmartz.booktrackr.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,9 +17,11 @@ public class Book implements Serializable {
     @Id
     private Long id;
 
+    @NotEmpty
     @Column(nullable = false)
     private String title;
 
+    @NotEmpty
     @Column(nullable = false)
     private String author;
 

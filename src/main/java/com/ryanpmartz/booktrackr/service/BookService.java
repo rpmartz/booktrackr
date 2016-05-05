@@ -24,8 +24,13 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<Book> getBook(Long bookId) {
         return Optional.ofNullable(bookRepository.findOne(bookId));
+    }
+
+    @Transactional
+    public Book createBook(Book book) {
+        return bookRepository.save(book);
     }
 }
