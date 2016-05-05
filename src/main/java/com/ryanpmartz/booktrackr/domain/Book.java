@@ -3,7 +3,6 @@ package com.ryanpmartz.booktrackr.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 import java.io.Serializable;
 
@@ -22,7 +21,7 @@ public class Book implements Serializable {
     @Column(nullable = false)
     private String author;
 
-    @Column @Lob
+    @Column(columnDefinition="TEXT")
     private String notes;
 
     public Long getId() {
