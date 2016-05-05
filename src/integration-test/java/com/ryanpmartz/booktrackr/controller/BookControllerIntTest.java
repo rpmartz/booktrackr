@@ -46,4 +46,12 @@ public class BookControllerIntTest {
                 .andExpect(jsonPath("$[1].title").value("The Great Gatsby"))
                 .andDo(print());
     }
+
+    @Test
+    public void testGetBookById() throws Exception {
+        mockMvc.perform(get("/books/1")).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.title").value("1984"))
+                .andDo(print());
+    }
 }

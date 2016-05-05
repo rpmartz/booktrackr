@@ -12,16 +12,18 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 public class BookControllerTest {
+
+    private static final Long MISSING_BOOK_ID = 99L;
 
     private MockMvc mockMvc;
 
@@ -35,10 +37,7 @@ public class BookControllerTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         mockMvc = standaloneSetup(bookController).build();
-    }
 
-    @Test
-    public void testGetAllBooks() throws Exception {
         Book firstBook = new Book();
         firstBook.setId(1L);
         firstBook.setAuthor("John Doe");
@@ -52,12 +51,25 @@ public class BookControllerTest {
         secondBook.setNotes("Read this after the first book");
 
         when(bookService.getAllBooks()).thenReturn(Arrays.asList(firstBook, secondBook));
+        when(bookService.getBook(1L)).thenReturn(Optional.of(firstBook));
+        when(bookService.getBook(MISSING_BOOK_ID)).thenReturn(Optional.empty());
+    }
+
+    @Test
+    public void testGetAllBooks() throws Exception {
 
         mockMvc.perform(get("/books")).andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$[0].title").value("The First Book"))
-                .andExpect(jsonPath("$[1].title").value("The Second Book"))
-                .andDo(print());
+                .andExpect(jsonPath("$[1].title").value("The Second Book"));
     }
 
+    @Test
+    public void testGetBookById() throws Exception {
+        mockMvc.perform(get("/books/1")).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.title").value("The First Book"));
+
+        mockMvc.perform(get("/books/" + MISSING_BOOK_ID)).andExpect(status().isNotFound());
+    }
 }

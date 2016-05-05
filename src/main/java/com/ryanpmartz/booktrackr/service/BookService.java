@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -21,5 +22,10 @@ public class BookService {
     @Transactional(readOnly = true)
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
+    }
+
+    @Transactional
+    public Optional<Book> getBook(Long bookId) {
+        return Optional.ofNullable(bookRepository.findOne(bookId));
     }
 }
