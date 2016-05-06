@@ -1,5 +1,6 @@
 package com.ryanpmartz.booktrackr.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ryanpmartz.booktrackr.BooktrackrApplication;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +15,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -30,6 +35,8 @@ public class BookControllerIntTest {
     private WebApplicationContext webApplicationContext;
 
     private MockMvc mockMvc;
+
+    private ObjectMapper mapper = new ObjectMapper();
 
     @Before
     public void setUp() {
@@ -49,9 +56,20 @@ public class BookControllerIntTest {
 
     @Test
     public void testGetBookById() throws Exception {
-        mockMvc.perform(get("/books/1")).andExpect(status().isOk())
+        mockMvc.perform(get("/books/09c4d7e2-01e5-4dea-a8cd-f3bfc908b316")).andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.title").value("1984"))
                 .andDo(print());
+    }
+
+    @Test
+    public void testCreatingBook() throws Exception {
+        Map<String, String> json = new HashMap<>();
+        json.put("author", "Dave Ramsey");
+        json.put("title", "Entreleadership");
+
+        mockMvc.perform(post("/books").contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(mapper.writeValueAsString(json)))
+                .andExpect(status().isCreated()).andDo(print());
     }
 }
