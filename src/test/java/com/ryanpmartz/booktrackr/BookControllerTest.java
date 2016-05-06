@@ -29,6 +29,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 public class BookControllerTest {
 
     private static final UUID MISSING_BOOK_ID = UUID.fromString("09c4d7e2-01e5-4dea-a8cd-f3bfc908b316");
+    private static final UUID FIRST_BOOK_ID = UUID.fromString("abee7ba3-8bf7-496c-a19a-de0471fc06c1");
 
     private MockMvc mockMvc;
 
@@ -44,7 +45,7 @@ public class BookControllerTest {
         mockMvc = standaloneSetup(bookController).build();
 
         Book firstBook = new Book();
-        firstBook.setId(UUID.fromString("abee7ba3-8bf7-496c-a19a-de0471fc06c1"));
+        firstBook.setId(FIRST_BOOK_ID);
         firstBook.setAuthor("John Doe");
         firstBook.setTitle("The First Book");
         firstBook.setNotes("Some notes");
@@ -71,7 +72,7 @@ public class BookControllerTest {
 
     @Test
     public void testGetBookById() throws Exception {
-        mockMvc.perform(get("/books/abee7ba3-8bf7-496c-a19a-de0471fc06c1")).andExpect(status().isOk())
+        mockMvc.perform(get("/books/" + FIRST_BOOK_ID)).andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.title").value("The First Book"));
 
