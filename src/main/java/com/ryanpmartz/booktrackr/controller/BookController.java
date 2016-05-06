@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 public class BookController {
@@ -32,7 +33,7 @@ public class BookController {
     }
 
     @RequestMapping(value = "/books/{bookId}", method = RequestMethod.GET)
-    public ResponseEntity<Book> getBook(@PathVariable Long bookId) {
+    public ResponseEntity<Book> getBook(@PathVariable UUID bookId) {
         Optional<Book> bookOptional = bookService.getBook(bookId);
 
         return bookOptional
@@ -40,6 +41,7 @@ public class BookController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    // TODO: integration test
     @RequestMapping(value = "/books", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Book> createBook(@Valid @RequestBody Book book) {
         Book persistedBook = bookService.createBook(book);

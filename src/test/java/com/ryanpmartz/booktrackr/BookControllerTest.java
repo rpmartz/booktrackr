@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -27,7 +28,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 
 public class BookControllerTest {
 
-    private static final Long MISSING_BOOK_ID = 99L;
+    private static final UUID MISSING_BOOK_ID = UUID.fromString("09c4d7e2-01e5-4dea-a8cd-f3bfc908b316");
 
     private MockMvc mockMvc;
 
@@ -43,19 +44,19 @@ public class BookControllerTest {
         mockMvc = standaloneSetup(bookController).build();
 
         Book firstBook = new Book();
-        firstBook.setId(1L);
+        firstBook.setId(UUID.fromString("abee7ba3-8bf7-496c-a19a-de0471fc06c1"));
         firstBook.setAuthor("John Doe");
         firstBook.setTitle("The First Book");
         firstBook.setNotes("Some notes");
 
         Book secondBook = new Book();
-        secondBook.setId(2L);
+        secondBook.setId(UUID.fromString("16299861-a686-4489-ad40-5f3578d6bcd9"));
         secondBook.setAuthor("Jane Doe");
         secondBook.setTitle("The Second Book");
         secondBook.setNotes("Read this after the first book");
 
         when(bookService.getAllBooks()).thenReturn(Arrays.asList(firstBook, secondBook));
-        when(bookService.getBook(1L)).thenReturn(Optional.of(firstBook));
+        when(bookService.getBook(firstBook.getId())).thenReturn(Optional.of(firstBook));
         when(bookService.getBook(MISSING_BOOK_ID)).thenReturn(Optional.empty());
     }
 
@@ -70,7 +71,7 @@ public class BookControllerTest {
 
     @Test
     public void testGetBookById() throws Exception {
-        mockMvc.perform(get("/books/1")).andExpect(status().isOk())
+        mockMvc.perform(get("/books/abee7ba3-8bf7-496c-a19a-de0471fc06c1")).andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.title").value("The First Book"));
 
