@@ -1,5 +1,6 @@
 package com.ryanpmartz.booktrackr.domain;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
@@ -7,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.UUID;
 
 @Entity
 @Table(name = "book")
@@ -14,8 +16,8 @@ public class Book implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    private Long id;
+    @Id @Type(type="pg-uuid")
+    private UUID id;
 
     @NotEmpty
     @Column(nullable = false)
@@ -28,11 +30,11 @@ public class Book implements Serializable {
     @Column(columnDefinition="TEXT")
     private String notes;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
