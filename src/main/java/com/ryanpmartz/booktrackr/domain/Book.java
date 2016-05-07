@@ -20,7 +20,8 @@ public class Book implements Serializable {
 
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Id @Type(type="pg-uuid")
+    @Id
+    @Type(type = "pg-uuid")
     private UUID id;
 
     @NotEmpty
@@ -31,7 +32,7 @@ public class Book implements Serializable {
     @Column(nullable = false)
     private String author;
 
-    @Column(columnDefinition="TEXT")
+    @Column(columnDefinition = "TEXT")
     private String notes;
 
     public UUID getId() {

@@ -46,7 +46,7 @@ public class BookController {
         Book persistedBook = bookService.createBook(book);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                    .contentType(MediaType.APPLICATION_JSON_UTF8).body(persistedBook);
+                .contentType(MediaType.APPLICATION_JSON_UTF8).body(persistedBook);
     }
 
     @RequestMapping(value = "/books/{bookId}", method = RequestMethod.PUT)
@@ -62,7 +62,7 @@ public class BookController {
 
             return new ResponseEntity<>(b, HttpStatus.OK);
 
-            }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @RequestMapping(value = "/books/{bookId}", method = RequestMethod.DELETE)

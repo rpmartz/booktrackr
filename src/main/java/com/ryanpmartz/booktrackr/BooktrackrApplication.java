@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class BooktrackrApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BooktrackrApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(BooktrackrApplication.class, args);
+    }
 }

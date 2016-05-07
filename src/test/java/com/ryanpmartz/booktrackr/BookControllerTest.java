@@ -35,7 +35,7 @@ public class BookControllerTest {
 
     private MockMvc mockMvc;
 
-    private  ObjectMapper mapper = new ObjectMapper();
+    private ObjectMapper mapper = new ObjectMapper();
 
     @Mock
     private BookService bookService;
@@ -100,8 +100,8 @@ public class BookControllerTest {
         Map<String, String> json = new HashMap<>();
 
         mockMvc.perform(post("/books")
-                        .content(mapper.writeValueAsString(json))
-                        .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .content(mapper.writeValueAsString(json))
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isBadRequest());
 
         json.put("author", "Lee Child");
