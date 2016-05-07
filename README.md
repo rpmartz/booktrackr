@@ -1,4 +1,7 @@
+# Booktrackr
+
 [![Build Status](https://travis-ci.org/rpmartz/booktrackr.svg?branch=master)](https://travis-ci.org/rpmartz/booktrackr)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7af28710cc684d29be9015fb8edfd415)](https://www.codacy.com/app/martzrp/booktrackr)
 
 ## Overview
 
