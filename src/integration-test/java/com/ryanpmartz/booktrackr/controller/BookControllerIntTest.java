@@ -20,6 +20,7 @@ import java.util.Map;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -71,5 +72,20 @@ public class BookControllerIntTest {
         mockMvc.perform(post("/books").contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(mapper.writeValueAsString(json)))
                 .andExpect(status().isCreated()).andDo(print());
+    }
+
+    @Test
+    public void testUpdatingBook() throws Exception {
+        Map<String, String> json = new HashMap<>();
+        json.put("author", "Dave Ramsey");
+        json.put("title", "Entreleadership");
+        json.put("notes", "Listened to the audio version");
+
+        mockMvc.perform(put("/books/09c4d7e2-01e5-4dea-a8cd-f3bfc908b316").contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(mapper.writeValueAsString(json)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.author").value(json.get("author")))
+                .andExpect(jsonPath("$.title").value(json.get("title")))
+                .andExpect(jsonPath("$.notes").value(json.get("notes")));
     }
 }
