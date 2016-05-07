@@ -19,6 +19,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -140,7 +141,7 @@ public class BookControllerTest {
     }
 
     @Test
-    public void testDeletingBook() {
-
+    public void testDeletingBook() throws Exception {
+        mockMvc.perform(delete("/books/" + FIRST_BOOK_ID)).andExpect(status().isOk());
     }
 }

@@ -64,4 +64,11 @@ public class BookController {
 
             }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    @RequestMapping(value = "/books/{bookId}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteBook(@PathVariable UUID bookId) {
+        bookService.deleteBook(bookId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

@@ -18,6 +18,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -87,5 +88,11 @@ public class BookControllerIntTest {
                 .andExpect(jsonPath("$.author").value(json.get("author")))
                 .andExpect(jsonPath("$.title").value(json.get("title")))
                 .andExpect(jsonPath("$.notes").value(json.get("notes")));
+    }
+
+    @Test
+    public void testDeletingBook() throws Exception {
+        mockMvc.perform(delete("/books/09c4d7e2-01e5-4dea-a8cd-f3bfc908b316")).andExpect(status().isOk());
+        mockMvc.perform(get("/books/09c4d7e2-01e5-4dea-a8cd-f3bfc908b316")).andExpect(status().isNotFound());
     }
 }
