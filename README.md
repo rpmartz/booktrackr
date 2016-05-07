@@ -14,3 +14,5 @@ I'm creating this application in parts, and blogging about them [here](https://r
 * [Part III](https://ryanpmartz.com/booktrackr-part-03-first-deployment): Setting up deployment to Heroku
 * [Part IV](https://ryanpmartz.com/booktrackr-part-04-users-migrations): Switching to Postgres, creating the first domain entity, setting up Docker locally, and enabling schema migrations
 * [Part V](https://ryanpmartz.com/booktrackr-part-05-heroku-postgres-travis): Updating Travis and Heroku to use Postgres
+* [Part VI](http://ryanpmartz.com/booktrackr-part-06-book-endpoints): Implementing and testing the endpoints for the `Book` entity
+* [Part VII](https://ryanpmartz.com/booktrackr-part-07-api-docs): Adding interactive API documentation of Booktrackr endpoints
