@@ -41,12 +41,27 @@ public class BookController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // TODO: integration test
     @RequestMapping(value = "/books", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Book> createBook(@Valid @RequestBody Book book) {
         Book persistedBook = bookService.createBook(book);
 
         return ResponseEntity.status(HttpStatus.CREATED)
                     .contentType(MediaType.APPLICATION_JSON_UTF8).body(persistedBook);
+    }
+
+    @RequestMapping(value = "/books/{bookId}", method = RequestMethod.PUT)
+    public ResponseEntity<Book> updateBook(@PathVariable UUID bookId, @Valid @RequestBody Book book) {
+        Optional<Book> existingRecord = bookService.getBook(bookId);
+
+        return existingRecord.map(b -> {
+            b.setTitle(book.getTitle());
+            b.setAuthor(book.getAuthor());
+            b.setNotes(book.getNotes());
+
+            bookService.updateBook(b);
+
+            return new ResponseEntity<>(b, HttpStatus.OK);
+
+            }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

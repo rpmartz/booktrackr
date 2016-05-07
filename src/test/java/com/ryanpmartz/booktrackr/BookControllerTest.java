@@ -21,6 +21,7 @@ import java.util.UUID;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -32,6 +33,8 @@ public class BookControllerTest {
     private static final UUID FIRST_BOOK_ID = UUID.fromString("abee7ba3-8bf7-496c-a19a-de0471fc06c1");
 
     private MockMvc mockMvc;
+
+    private  ObjectMapper mapper = new ObjectMapper();
 
     @Mock
     private BookService bookService;
@@ -94,7 +97,6 @@ public class BookControllerTest {
     @Test
     public void testThatBookJsonIsValidated() throws Exception {
         Map<String, String> json = new HashMap<>();
-        ObjectMapper mapper = new ObjectMapper();
 
         mockMvc.perform(post("/books")
                         .content(mapper.writeValueAsString(json))
@@ -115,6 +117,30 @@ public class BookControllerTest {
                 .content(mapper.writeValueAsString(json))
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isBadRequest());
+
+    }
+
+    @Test
+    public void testUpdatingBook() throws Exception {
+        Map<String, String> json = new HashMap<>();
+        json.put("title", "Winnie the Pooh");
+        json.put("author", "AA Milne");
+        json.put("notes", "Let's Update an Existing Book");
+
+        mockMvc.perform(put("/books/" + FIRST_BOOK_ID).content(mapper.writeValueAsString(json)).contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.author").value("AA Milne"));
+    }
+
+    @Test
+    public void testUpdateBookJsonIsValidated() throws Exception {
+        Map<String, String> json = new HashMap<>();
+
+        mockMvc.perform(put("/books/" + FIRST_BOOK_ID).content(mapper.writeValueAsString(json)).contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testDeletingBook() {
 
     }
 }

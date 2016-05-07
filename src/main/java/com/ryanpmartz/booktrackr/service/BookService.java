@@ -34,4 +34,9 @@ public class BookService {
     public Book createBook(Book book) {
         return bookRepository.save(book);
     }
+
+    @Transactional
+    public void updateBook(Book book) {
+        bookRepository.save(book);
+    }
 }
