@@ -3,7 +3,6 @@ spring:
     url: ${BOOKTRACKR_DB_URL}
     username: ${BOOKTRACKR_DB_USERNAME}
     password: ${BOOKTRACKR_DB_PASSWORD}
-    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate.ddl-auto: validate
