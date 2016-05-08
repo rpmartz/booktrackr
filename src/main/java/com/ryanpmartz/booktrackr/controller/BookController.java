@@ -1,5 +1,6 @@
 package com.ryanpmartz.booktrackr.controller;
 
+import com.codahale.metrics.annotation.Timed;
 import com.ryanpmartz.booktrackr.domain.Book;
 import com.ryanpmartz.booktrackr.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+
 @RestController
 public class BookController {
 
@@ -27,6 +29,7 @@ public class BookController {
         this.bookService = bookService;
     }
 
+    @Timed
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     public ResponseEntity<List<Book>> getAllBooks() {
         return ResponseEntity.ok(bookService.getAllBooks());
@@ -41,6 +44,7 @@ public class BookController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @Timed
     @RequestMapping(value = "/books", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Book> createBook(@Valid @RequestBody Book book) {
         Book persistedBook = bookService.createBook(book);
@@ -49,6 +53,7 @@ public class BookController {
                 .contentType(MediaType.APPLICATION_JSON_UTF8).body(persistedBook);
     }
 
+    @Timed
     @RequestMapping(value = "/books/{bookId}", method = RequestMethod.PUT)
     public ResponseEntity<Book> updateBook(@PathVariable UUID bookId, @Valid @RequestBody Book book) {
         Optional<Book> existingRecord = bookService.getBook(bookId);
@@ -65,6 +70,7 @@ public class BookController {
         }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @Timed
     @RequestMapping(value = "/books/{bookId}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteBook(@PathVariable UUID bookId) {
         bookService.deleteBook(bookId);
