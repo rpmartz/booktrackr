@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -Dspring.profiles.active=monitoring $JAVA_OPTS -jar build/libs/booktrackr-0.0.1-SNAPSHOT.jar
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/booktrackr-0.0.1-SNAPSHOT.jar
