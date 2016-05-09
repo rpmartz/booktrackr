@@ -9,12 +9,14 @@ import com.ryantenney.metrics.spring.config.annotation.MetricsConfigurerAdapter;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
 @EnableMetrics
+@Profile("monitoring")
 public class MetricsConfig extends MetricsConfigurerAdapter {
 
     @Value("${graphite.host}")
