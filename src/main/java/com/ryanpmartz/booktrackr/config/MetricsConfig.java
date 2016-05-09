@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 @Configuration
 @EnableMetrics
-@Profile("monitoring")
+@Profile(value = {"dev", "prod"})
 public class MetricsConfig extends MetricsConfigurerAdapter {
 
     @Value("${graphite.host}")
