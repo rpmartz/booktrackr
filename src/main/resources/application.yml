@@ -6,3 +6,8 @@ spring:
 
   jpa:
     hibernate.ddl-auto: validate
+
+graphite:
+  host: ${GRAPHITE_HOST}
+  post: ${GRAPHITE_PORT}
+  apiKey: ${GRAPHITE_API_KEY}
