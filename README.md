@@ -21,3 +21,4 @@ I'm creating this application in parts, and blogging about them [here](https://r
 * [Part VI](http://ryanpmartz.com/booktrackr-part-06-book-endpoints): Implementing and testing the endpoints for the `Book` entity
 * [Part VII](https://ryanpmartz.com/booktrackr-part-07-api-docs): Adding interactive API documentation of Booktrackr endpoints
 * [Part VIII](https://ryanpmartz.com/booktrackr-part-08-monitoring): Adding Spring Boot Actuator and Dropwizard Metrics for monitoring and Grafana performance dashboard visualization
+* [Part IX](https://ryanpmartz.com/booktrackr-part-09-user-model): Adding a `User` model
