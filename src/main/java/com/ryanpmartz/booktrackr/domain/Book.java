@@ -1,28 +1,16 @@
 package com.ryanpmartz.booktrackr.domain;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
-import java.util.UUID;
 
 @Entity
 @Table(name = "book")
-public class Book implements Serializable {
+public class Book extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
-
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Id
-    @Type(type = "pg-uuid")
-    private UUID id;
 
     @NotEmpty
     @Column(nullable = false)
@@ -34,14 +22,6 @@ public class Book implements Serializable {
 
     @Column(columnDefinition = "TEXT")
     private String notes;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -70,9 +50,10 @@ public class Book implements Serializable {
     @Override
     public String toString() {
         return "Book{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
+                "id='" + id + '\'' +
+                "title='" + title + '\'' +
                 ", author='" + author + '\'' +
+                ", notes='" + notes + '\'' +
                 '}';
     }
 }
