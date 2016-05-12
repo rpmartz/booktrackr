@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,11 +26,12 @@ public class UserController {
     private static final String EMAIL_EXISTS_MESSAGE = "This email is in use";
 
     private final UserService userService;
-
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, PasswordEncoder encoder) {
         this.userService = userService;
+        this.passwordEncoder = encoder;
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
@@ -54,11 +56,13 @@ public class UserController {
 
         User user = new User();
         user.setEnabled(true);
-        // never save plain text passwords, we'll address this in the next post
-        user.setPassword("*****");
         user.setEmail(signupDto.getEmail());
         user.setFirstName(signupDto.getFirstName());
         user.setLastName(signupDto.getLastName());
+        user.setPassword(passwordEncoder.encode(signupDto.getPassword()));
+
+        signupDto.setPassword(null);
+        signupDto.setConfirmPassword(null);
 
         User savedUser = userService.createUser(user);
 
