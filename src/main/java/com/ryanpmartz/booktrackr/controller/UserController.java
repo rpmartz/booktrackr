@@ -1,5 +1,7 @@
 package com.ryanpmartz.booktrackr.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ryanpmartz.booktrackr.controller.dto.SignupDto;
 import com.ryanpmartz.booktrackr.domain.User;
 import com.ryanpmartz.booktrackr.service.UserService;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -29,7 +33,18 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public ResponseEntity<?> createUser(@Valid @RequestBody SignupDto signupDto) {
+    public ResponseEntity<?> createUser(@Valid @RequestBody SignupDto signupDto) throws JsonProcessingException {
+        if (!signupDto.getPassword().equals(signupDto.getConfirmPassword())) {
+            Map<String, String> errorJson = new HashMap<>();
+            errorJson.put("field", "confirmPassword");
+            errorJson.put("error", "Password and confirm password must match");
+
+            ObjectMapper mapper = new ObjectMapper();
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .contentType(MediaType.APPLICATION_JSON_UTF8).body(mapper.writeValueAsString(errorJson));
+        }
+
         final String requestedEmail = signupDto.getEmail();
 
         Optional<User> existingUserOptional = userService.getUserByEmail(requestedEmail);

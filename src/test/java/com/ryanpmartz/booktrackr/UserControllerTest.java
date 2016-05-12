@@ -81,4 +81,16 @@ public class UserControllerTest {
 
         verify(userService, never()).createUser(any(User.class));
     }
+
+    @Test
+    public void testCreatingAccountWithMismatchedPasswords() throws Exception {
+        requestJsonData.put("email", NEW_USER_EMAIL);
+        requestJsonData.put("confirmPassword", "does not match");
+
+        mockMvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(mapper.writeValueAsString(requestJsonData)))
+                .andExpect(status().isBadRequest());
+
+        verify(userService, never()).createUser(any(User.class));
+    }
 }
