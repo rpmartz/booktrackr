@@ -22,7 +22,7 @@ public class UserService {
     @Timed
     @Transactional(readOnly = true)
     public Optional<User> getUserByEmail(String email) {
-        return Optional.of(userRepository.findByEmail(email));
+        return Optional.ofNullable(userRepository.findByEmail(email));
     }
 
     @Timed
