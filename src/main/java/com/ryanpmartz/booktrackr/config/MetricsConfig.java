@@ -25,7 +25,7 @@ public class MetricsConfig extends MetricsConfigurerAdapter {
     @Value("${graphite.port}")
     private int graphitePort;
 
-    @Value("#{graphite.apiKey")
+    @Value("${graphite.apiKey}")
     private String graphiteApiKey;
 
     @Override

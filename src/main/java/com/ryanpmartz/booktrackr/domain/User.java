@@ -1,5 +1,6 @@
 package com.ryanpmartz.booktrackr.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Column;
@@ -16,6 +17,7 @@ public class User extends BaseEntity {
     private String email;
 
     @Column
+    @JsonIgnore
     private boolean enabled;
 
     @Column(name = "first_name")
@@ -27,6 +29,7 @@ public class User extends BaseEntity {
     private String lastName;
 
     @Column
+    @JsonIgnore
     private String password;
 
     public String getEmail() {
