@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 // allow anonymous access access to Swagger docs
-                .antMatchers("/v2/api-docs", "/**/swagger-ui.html", "/webjars/**", "/swagger-resources/**").permitAll()
+                .antMatchers("/v2/api-docs", "/**/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/configuration/**").permitAll()
                 // anonymous users need to be able to log in
                 .antMatchers("/authenticate").permitAll()
                 // all other request paths are protected
