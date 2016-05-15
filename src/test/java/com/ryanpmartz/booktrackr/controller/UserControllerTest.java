@@ -1,7 +1,6 @@
-package com.ryanpmartz.booktrackr;
+package com.ryanpmartz.booktrackr.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ryanpmartz.booktrackr.controller.UserController;
 import com.ryanpmartz.booktrackr.domain.User;
 import com.ryanpmartz.booktrackr.service.UserService;
 import org.junit.Before;
