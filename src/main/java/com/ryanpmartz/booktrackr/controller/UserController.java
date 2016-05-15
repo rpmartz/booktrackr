@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ryanpmartz.booktrackr.controller.dto.SignupDto;
 import com.ryanpmartz.booktrackr.domain.User;
+import com.ryanpmartz.booktrackr.domain.UserRole;
+import com.ryanpmartz.booktrackr.domain.UserRoleEnum;
 import com.ryanpmartz.booktrackr.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 
@@ -60,6 +63,12 @@ public class UserController {
         user.setFirstName(signupDto.getFirstName());
         user.setLastName(signupDto.getLastName());
         user.setPassword(passwordEncoder.encode(signupDto.getPassword()));
+        user.setRoles(new HashSet<>());
+
+        UserRole roleUser = new UserRole();
+        roleUser.setUser(user);
+        roleUser.setUserRole(UserRoleEnum.ROLE_USER);
+        user.getRoles().add(roleUser);
 
         signupDto.setPassword(null);
         signupDto.setConfirmPassword(null);
