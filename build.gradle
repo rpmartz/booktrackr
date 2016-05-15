@@ -62,6 +62,7 @@ dependencies {
     testCompile('com.h2database:h2:1.4.191')
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('com.jayway.jsonpath:json-path')
+    testCompile('org.springframework.security:spring-security-test')
 }
 
 task wrapper(type: Wrapper) {
