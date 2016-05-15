@@ -32,7 +32,7 @@ public class JwtUtil {
     private final String signingSecret;
 
     @Autowired
-    public JwtUtil(@Value("${jwt.signing.secret}") String siginingSecret) {
+    public JwtUtil(@Value("${jwt.signing-secret}") String siginingSecret) {
         this.signingSecret = siginingSecret;
     }
 
