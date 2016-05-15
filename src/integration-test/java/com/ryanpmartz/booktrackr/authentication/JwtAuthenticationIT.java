@@ -47,7 +47,7 @@ public class JwtAuthenticationIT {
 
     @Test
     public void testCanAuthenticateAndUseTokenToAccessProtectedResource() throws Exception {
-        mockMvc.perform(get("/users")).andExpect(status().isForbidden());
+        mockMvc.perform(get("/books")).andExpect(status().isForbidden());
 
         LoginRequest login = new LoginRequest();
         login.setUsername("martzrp@gmail.com");
