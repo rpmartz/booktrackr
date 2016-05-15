@@ -14,11 +14,14 @@ public class UserRole extends BaseEntity {
 
     private static final long serialVersionUid = 1L;
 
-    private UserRoleEnum userRole;
-    private User user;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "authority", nullable = false)
+    private UserRoleEnum userRole;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
+    private User user;
+
     public UserRoleEnum getUserRole() {
         return userRole;
     }
@@ -27,8 +30,6 @@ public class UserRole extends BaseEntity {
         this.userRole = userRole;
     }
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "user_id", nullable = false, updatable = false)
     public User getUser() {
         return user;
     }
