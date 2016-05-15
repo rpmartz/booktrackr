@@ -37,4 +37,29 @@ public class UserRole extends BaseEntity {
         this.user = user;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        UserRole userRole1 = (UserRole) o;
+        if (userRole != userRole1.userRole) {
+            return false;
+        }
+
+        return user != null ? user.equals(userRole1.user) : userRole1.user == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = userRole != null ? userRole.hashCode() : 0;
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        return result;
+    }
 }

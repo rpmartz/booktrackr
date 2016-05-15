@@ -5,7 +5,9 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -31,6 +33,9 @@ public class User extends BaseEntity {
     @Column
     @JsonIgnore
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private Set<UserRole> roles;
 
     public String getEmail() {
         return email;
@@ -70,5 +75,13 @@ public class User extends BaseEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<UserRole> roles) {
+        this.roles = roles;
     }
 }
