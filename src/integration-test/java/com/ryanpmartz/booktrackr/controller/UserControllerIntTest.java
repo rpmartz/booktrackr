@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = BooktrackrApplication.class)
 @WebAppConfiguration
-@Sql("/users-integration-test-data.sql")
+@Sql("/integration-test-data.sql")
 public class UserControllerIntTest {
 
     @Autowired

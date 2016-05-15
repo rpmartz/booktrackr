@@ -29,7 +29,7 @@ import static org.springframework.util.StringUtils.hasText;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {BooktrackrApplication.class})
 @WebIntegrationTest(randomPort = true)
-@Sql("/users-integration-test-data.sql")
+@Sql("/integration-test-data.sql")
 public class JwtAuthenticationIT {
 
     @Autowired
