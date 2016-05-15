@@ -29,7 +29,7 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserService userService, PasswordEncoder encoder) {
+    public UserController(final UserService userService, final PasswordEncoder encoder) {
         this.userService = userService;
         this.passwordEncoder = encoder;
     }
