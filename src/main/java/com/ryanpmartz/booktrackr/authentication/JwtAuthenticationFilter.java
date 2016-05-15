@@ -12,6 +12,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.net.URLDecoder;
 
 @Component
 public class JwtAuthenticationFilter extends GenericFilterBean {
@@ -32,13 +33,13 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         log.debug("Attempting JWT Authentication");
         String header = request.getHeader("Authorization");
 
-        if (header == null || !header.startsWith("Bearer ")) {
+        if (header == null || !header.startsWith("Bearer")) {
             log.debug("Missing or invalid Authorization header");
             chain.doFilter(request, response);
             return;
         }
 
-        String authToken = header.substring(7);
+        String authToken = URLDecoder.decode(header, "UTF-8").substring(7);
         JwtAuthenticationToken token = jwtUtil.tokenFromStringJwt(authToken);
 
         SecurityContextHolder.getContext().setAuthentication(token);
