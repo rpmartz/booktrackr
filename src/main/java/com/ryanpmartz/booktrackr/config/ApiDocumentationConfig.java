@@ -40,6 +40,6 @@ public class ApiDocumentationConfig {
                 "JSON Web token",
                 ApiKeyVehicle.HEADER,
                 "Authorization",
-                "," /*scope separator*/);
+                ",");
     }
 }
