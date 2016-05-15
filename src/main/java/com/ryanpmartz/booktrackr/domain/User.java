@@ -40,6 +40,7 @@ public class User extends BaseEntity implements UserDetails {
     private String password;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private Set<UserRole> roles;
 
     public String getEmail() {
