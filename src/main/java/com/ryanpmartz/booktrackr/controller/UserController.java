@@ -3,6 +3,7 @@ package com.ryanpmartz.booktrackr.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ryanpmartz.booktrackr.controller.dto.SignupDto;
+import com.ryanpmartz.booktrackr.controller.dto.UserDto;
 import com.ryanpmartz.booktrackr.domain.User;
 import com.ryanpmartz.booktrackr.domain.UserRole;
 import com.ryanpmartz.booktrackr.domain.UserRoleEnum;
@@ -76,6 +77,6 @@ public class UserController {
         User savedUser = userService.createUser(user);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .contentType(MediaType.APPLICATION_JSON_UTF8).body(savedUser);
+                .contentType(MediaType.APPLICATION_JSON_UTF8).body(new UserDto(savedUser));
     }
 }
