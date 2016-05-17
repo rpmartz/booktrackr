@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -42,7 +43,7 @@ public class JwtUtil {
      * @param user the user to generate a token for
      * @return a signed JWT that will be used for stateless authentication on subsequent requests
      */
-    protected String generateToken(User user) {
+    public String generateToken(User user) {
         checkState(user);
 
         Claims claims = Jwts.claims().setSubject(user.getEmail());
@@ -60,7 +61,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    protected JwtAuthenticationToken tokenFromStringJwt(String rawJwt) {
+    public JwtAuthenticationToken tokenFromStringJwt(String rawJwt) {
         DefaultJwtParser parser = ((DefaultJwtParser) Jwts.parser());
         parser.setSigningKey(signingSecret);
 
@@ -78,6 +79,10 @@ public class JwtUtil {
             log.info(String.format("Exception occurred parsing JWT [%s].\nException message: %s", rawJwt, e.getMessage()));
             return null;
         }
+    }
+
+    public static JwtAuthenticationToken tokenFromSecurityContext() {
+        return ((JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication());
     }
 
     private void checkState(User user) {

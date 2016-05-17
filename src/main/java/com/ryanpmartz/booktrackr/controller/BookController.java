@@ -1,12 +1,15 @@
 package com.ryanpmartz.booktrackr.controller;
 
 import com.codahale.metrics.annotation.Timed;
+import com.ryanpmartz.booktrackr.authentication.JwtAuthenticationToken;
+import com.ryanpmartz.booktrackr.authentication.JwtUtil;
 import com.ryanpmartz.booktrackr.domain.Book;
 import com.ryanpmartz.booktrackr.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +35,8 @@ public class BookController {
     @Timed
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     public ResponseEntity<List<Book>> getAllBooks() {
-        return ResponseEntity.ok(bookService.getAllBooks());
+        JwtAuthenticationToken jwt = JwtUtil.tokenFromSecurityContext();
+        return ResponseEntity.ok(bookService.getAllBooksForUser(jwt.getUserId()));
     }
 
     @RequestMapping(value = "/books/{bookId}", method = RequestMethod.GET)
@@ -40,7 +44,14 @@ public class BookController {
         Optional<Book> bookOptional = bookService.getBook(bookId);
 
         return bookOptional
-                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .map(result -> {
+                    JwtAuthenticationToken jwt = JwtUtil.tokenFromSecurityContext();
+                    if (!result.getUser().getId().equals(jwt.getUserId())) {
+                        throw new AccessDeniedException("User [" + jwt.getUserId() + "] does not have access to book [" + bookId + "]");
+                    }
+
+                    return new ResponseEntity<>(result, HttpStatus.OK);
+                })
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
@@ -59,6 +70,12 @@ public class BookController {
         Optional<Book> existingRecord = bookService.getBook(bookId);
 
         return existingRecord.map(b -> {
+
+            JwtAuthenticationToken jwt = JwtUtil.tokenFromSecurityContext();
+            if (!b.getUser().getId().equals(jwt.getUserId())) {
+                throw new AccessDeniedException("User [" + jwt.getUserId() + "] does not have access to book [" + bookId + "]");
+            }
+
             b.setTitle(book.getTitle());
             b.setAuthor(book.getAuthor());
             b.setNotes(book.getNotes());
@@ -73,8 +90,19 @@ public class BookController {
     @Timed
     @RequestMapping(value = "/books/{bookId}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteBook(@PathVariable UUID bookId) {
-        bookService.deleteBook(bookId);
+        Optional<Book> book = bookService.getBook(bookId);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return book.map(b -> {
+
+            JwtAuthenticationToken jwt = JwtUtil.tokenFromSecurityContext();
+            if (!b.getUser().getId().equals(jwt.getUserId())) {
+                throw new AccessDeniedException("User [" + jwt.getUserId() + "] does not have access to book [" + bookId + "]");
+            }
+
+            bookService.deleteBook(bookId);
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+
     }
 }

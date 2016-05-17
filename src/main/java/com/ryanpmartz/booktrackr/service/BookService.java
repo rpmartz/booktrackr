@@ -23,8 +23,8 @@ public class BookService {
 
     @Timed
     @Transactional(readOnly = true)
-    public List<Book> getAllBooks() {
-        return bookRepository.findAll();
+    public List<Book> getAllBooksForUser(UUID userId) {
+        return bookRepository.findByUserId(userId);
     }
 
     @Timed
