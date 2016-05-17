@@ -50,7 +50,7 @@ public class JwtAuthenticationIT {
         mockMvc.perform(get("/books")).andExpect(status().isForbidden());
 
         LoginRequest login = new LoginRequest();
-        login.setUsername("martzrp@gmail.com");
+        login.setUsername("booktrackr@ryanpmartz.com");
         login.setPassword("password");
 
         ObjectMapper mapper = new ObjectMapper();
