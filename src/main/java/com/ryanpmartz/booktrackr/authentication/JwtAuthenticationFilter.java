@@ -14,6 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URLDecoder;
 
+/**
+ * Filter that checks for an `Authorization` header in the HTTP Request with a JWT and attempts to authenticate
+ * the request.
+ */
 @Component
 public class JwtAuthenticationFilter extends GenericFilterBean {
 

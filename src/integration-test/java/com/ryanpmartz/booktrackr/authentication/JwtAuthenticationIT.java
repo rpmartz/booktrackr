@@ -45,6 +45,12 @@ public class JwtAuthenticationIT {
                 .build();
     }
 
+    /**
+     * Test to ensure that `/books` is denied to an unauthenticated user but can be accessed
+     * once authenticated.
+     *
+     * @throws Exception
+     */
     @Test
     public void testCanAuthenticateAndUseTokenToAccessProtectedResource() throws Exception {
         mockMvc.perform(get("/books")).andExpect(status().isForbidden());
