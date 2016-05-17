@@ -8,6 +8,7 @@ import com.ryanpmartz.booktrackr.domain.User;
 import com.ryanpmartz.booktrackr.domain.UserRole;
 import com.ryanpmartz.booktrackr.domain.UserRoleEnum;
 import com.ryanpmartz.booktrackr.service.BookService;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -91,6 +92,11 @@ public class BookControllerTest {
         when(bookService.getAllBooksForUser(token.getUserId())).thenReturn(Arrays.asList(firstBook, secondBook));
         when(bookService.getBook(firstBook.getId())).thenReturn(Optional.of(firstBook));
         when(bookService.getBook(MISSING_BOOK_ID)).thenReturn(Optional.empty());
+    }
+
+    @After
+    public void tearDown() {
+        SecurityContextHolder.clearContext();
     }
 
     @Test
