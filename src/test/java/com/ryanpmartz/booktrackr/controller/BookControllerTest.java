@@ -1,18 +1,25 @@
-package com.ryanpmartz.booktrackr;
+package com.ryanpmartz.booktrackr.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ryanpmartz.booktrackr.controller.BookController;
+import com.ryanpmartz.booktrackr.authentication.JwtAuthenticationToken;
+import com.ryanpmartz.booktrackr.authentication.JwtUtil;
 import com.ryanpmartz.booktrackr.domain.Book;
+import com.ryanpmartz.booktrackr.domain.User;
+import com.ryanpmartz.booktrackr.domain.UserRole;
+import com.ryanpmartz.booktrackr.domain.UserRoleEnum;
 import com.ryanpmartz.booktrackr.service.BookService;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -37,6 +44,11 @@ public class BookControllerTest {
 
     private ObjectMapper mapper = new ObjectMapper();
 
+    private JwtAuthenticationToken token;
+
+    @Mock
+    private JwtAuthenticationToken jwt;
+
     @Mock
     private BookService bookService;
 
@@ -48,26 +60,47 @@ public class BookControllerTest {
         MockitoAnnotations.initMocks(this);
         mockMvc = standaloneSetup(bookController).build();
 
+        User userOne = new User();
+        userOne.setId(UUID.randomUUID());
+        userOne.setEmail("test@booktrackr.com");
+        userOne.setEnabled(true);
+
+        UserRole userOneRole = new UserRole();
+        userOneRole.setUserRole(UserRoleEnum.ROLE_USER);
+        userOneRole.setUser(userOne);
+
+        userOne.setRoles(Collections.singleton(userOneRole));
+
+        JwtUtil jwtUtil = new JwtUtil("secret");
+        token = jwtUtil.tokenFromStringJwt(jwtUtil.generateToken(userOne));
+        SecurityContextHolder.getContext().setAuthentication(token);
+
         Book firstBook = new Book();
         firstBook.setId(FIRST_BOOK_ID);
         firstBook.setAuthor("John Doe");
         firstBook.setTitle("The First Book");
         firstBook.setNotes("Some notes");
+        firstBook.setUser(userOne);
 
         Book secondBook = new Book();
         secondBook.setId(UUID.fromString("16299861-a686-4489-ad40-5f3578d6bcd9"));
         secondBook.setAuthor("Jane Doe");
         secondBook.setTitle("The Second Book");
         secondBook.setNotes("Read this after the first book");
+        secondBook.setUser(userOne);
 
-        when(bookService.getAllBooks()).thenReturn(Arrays.asList(firstBook, secondBook));
+        when(bookService.getAllBooksForUser(token.getUserId())).thenReturn(Arrays.asList(firstBook, secondBook));
         when(bookService.getBook(firstBook.getId())).thenReturn(Optional.of(firstBook));
         when(bookService.getBook(MISSING_BOOK_ID)).thenReturn(Optional.empty());
     }
 
+    @After
+    public void tearDown() {
+        SecurityContextHolder.clearContext();
+    }
+
     @Test
     public void testGetAllBooks() throws Exception {
-
         mockMvc.perform(get("/books")).andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$[0].title").value("The First Book"))
