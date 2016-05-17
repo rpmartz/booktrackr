@@ -44,28 +44,14 @@ public class BookControllerIntTest {
 
     private String authHeaderValue;
 
+    // TODO: add tests that user cannot access others' book
+
     @Before
     public void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .apply(springSecurity()).build();
 
         authenticate();
-    }
-
-    private void authenticate() {
-        try {
-            LoginRequest login = new LoginRequest();
-            login.setUsername("booktrackr@ryanpmartz.com");
-            login.setPassword("password");
-
-            authHeaderValue = mockMvc.perform(post("/authenticate")
-                    .contentType(MediaType.APPLICATION_JSON_UTF8)
-                    .content(mapper.writeValueAsString(login)))
-                    .andExpect(status().isOk()).andDo(print())
-                    .andReturn().getResponse().getHeader("Authorization");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Test
@@ -117,5 +103,22 @@ public class BookControllerIntTest {
     public void testDeletingBook() throws Exception {
         mockMvc.perform(delete("/books/09c4d7e2-01e5-4dea-a8cd-f3bfc908b316").header("Authorization", authHeaderValue)).andExpect(status().isOk());
         mockMvc.perform(get("/books/09c4d7e2-01e5-4dea-a8cd-f3bfc908b316").header("Authorization", authHeaderValue)).andExpect(status().isNotFound());
+    }
+
+    // TODO extract this to superclass for sharing
+    private void authenticate() {
+        try {
+            LoginRequest login = new LoginRequest();
+            login.setUsername("booktrackr@ryanpmartz.com");
+            login.setPassword("password");
+
+            authHeaderValue = mockMvc.perform(post("/authenticate")
+                    .contentType(MediaType.APPLICATION_JSON_UTF8)
+                    .content(mapper.writeValueAsString(login)))
+                    .andExpect(status().isOk()).andDo(print())
+                    .andReturn().getResponse().getHeader("Authorization");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
