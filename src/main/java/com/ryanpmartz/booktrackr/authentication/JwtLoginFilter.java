@@ -18,6 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Filter for requests to `/authenticate` endpoint that will verify a user's username and password credentials
+ * and set an Authorization header with a valid JWT.
+ */
 public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
 
     private static final Logger log = Logger.getLogger(JwtLoginFilter.class);

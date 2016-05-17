@@ -38,6 +38,12 @@ public class BookService {
         return Optional.ofNullable(bookRepository.findOne(bookId));
     }
 
+    /**
+     * Creates a new book record with the user set to the user making the request.
+     *
+     * @param book the <code>Book</code> from the create book request
+     * @return the persisted <code>Book</code>
+     */
     @Timed
     @Transactional
     public Book createBook(Book book) {
