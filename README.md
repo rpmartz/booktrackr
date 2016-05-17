@@ -25,3 +25,4 @@ I'm creating this application in parts, and blogging about them [here](https://r
 * [Part VIII](https://ryanpmartz.com/booktrackr-part-08-monitoring): Adding Spring Boot Actuator and Dropwizard Metrics for monitoring and Grafana performance dashboard visualization
 * [Part IX](https://ryanpmartz.com/booktrackr-part-09-user-model): Adding a `User` model
 * [Part X](https://ryanpmartz.com/booktrackr-part-10-create-account): Implementing a create user workflow
+* [Part XI](https://ryanpmartz.com/booktrackr-part-11-security): Token-based authentication and authorization
