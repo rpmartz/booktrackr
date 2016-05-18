@@ -14,5 +14,8 @@
   "bugs": {
     "url": "https://github.com/rpmartz/booktrackr/issues"
   },
-  "homepage": "https://github.com/rpmartz/booktrackr#readme"
+  "homepage": "https://github.com/rpmartz/booktrackr#readme",
+  "dependencies": {
+    "bower": "^1.7.9"
+  }
 }
