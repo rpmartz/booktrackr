@@ -1,0 +1,10 @@
+{
+  "name": "booktrackr",
+  "description": "Simple App for tracking books you have read and keeping notes on them.",
+  "authors": [
+    "Ryan Martz"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/rpmartz/booktrackr",
+  "private": true
+}
