@@ -26,3 +26,7 @@ I'm creating this application in parts, and blogging about them [here](https://r
 * [Part IX](https://ryanpmartz.com/booktrackr-part-09-user-model): Adding a `User` model
 * [Part X](https://ryanpmartz.com/booktrackr-part-10-create-account): Implementing a create user workflow
 * [Part XI](https://ryanpmartz.com/booktrackr-part-11-security): Token-based authentication and authorization
+
+#### Web Front End
+
+* [Part I](http://ryanpmartz.com/booktrackr-client-part-01): Setting up NPM, Bower, and Gulp for working with front end assets
