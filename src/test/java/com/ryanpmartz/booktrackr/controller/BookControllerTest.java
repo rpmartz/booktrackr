@@ -44,11 +44,6 @@ public class BookControllerTest {
 
     private ObjectMapper mapper = new ObjectMapper();
 
-    private JwtAuthenticationToken token;
-
-    @Mock
-    private JwtAuthenticationToken jwt;
-
     @Mock
     private BookService bookService;
 
@@ -72,7 +67,7 @@ public class BookControllerTest {
         userOne.setRoles(Collections.singleton(userOneRole));
 
         JwtUtil jwtUtil = new JwtUtil("secret");
-        token = jwtUtil.tokenFromStringJwt(jwtUtil.generateToken(userOne));
+        JwtAuthenticationToken token = jwtUtil.tokenFromStringJwt(jwtUtil.generateToken(userOne));
         SecurityContextHolder.getContext().setAuthentication(token);
 
         Book firstBook = new Book();
