@@ -17,5 +17,8 @@
   "homepage": "https://github.com/rpmartz/booktrackr#readme",
   "dependencies": {
     "bower": "^1.7.9"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
   }
 }
