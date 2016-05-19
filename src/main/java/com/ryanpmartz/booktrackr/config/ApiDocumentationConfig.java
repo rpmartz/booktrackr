@@ -35,7 +35,7 @@ public class ApiDocumentationConfig {
     }
 
     @Bean
-    SecurityConfiguration security() {
+    public SecurityConfiguration security() {
         return new SecurityConfiguration(null, null, null, null,
                 "JSON Web token",
                 ApiKeyVehicle.HEADER,
