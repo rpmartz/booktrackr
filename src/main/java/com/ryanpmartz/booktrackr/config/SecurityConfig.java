@@ -45,6 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v2/api-docs", "/**/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/configuration/**").permitAll()
                 // anonymous users need to be able to log in
                 .antMatchers("/authenticate", "/users").permitAll()
+                // home page
+                .antMatchers("/").permitAll()
                 // all other request paths are protected
                 .anyRequest().authenticated()
                 .and()
