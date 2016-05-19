@@ -1,0 +1,24 @@
+{
+  "name": "booktrackr",
+  "version": "1.0.0",
+  "description": "Simple App for tracking books you have read and keeping notes on them. ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rpmartz/booktrackr.git"
+  },
+  "author": "Ryan Martz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rpmartz/booktrackr/issues"
+  },
+  "homepage": "https://github.com/rpmartz/booktrackr#readme",
+  "dependencies": {
+    "bower": "^1.7.9"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
