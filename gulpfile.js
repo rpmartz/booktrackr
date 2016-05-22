@@ -25,7 +25,7 @@ gulp.task('inject', function () {
     return gulp.src('src/main/resources/static/index.html')
         .pipe(inject(
             gulp.src('src/main/resources/static/app/js/**/*.js')
-                .pipe(angularFilesort())
+                .pipe(angularFilesort()), {relative: true}
         ))
         .pipe(gulp.dest('src/main/resources/static'));
 
