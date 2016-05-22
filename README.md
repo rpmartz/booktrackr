@@ -29,4 +29,5 @@ I'm creating this application in parts, and blogging about them [here](https://r
 
 #### Web Front End
 
-* [Part I](http://ryanpmartz.com/booktrackr-client-part-01): Setting up NPM, Bower, and Gulp for working with front end assets
+* [Part I](https://ryanpmartz.com/booktrackr-client-part-01): Setting up NPM, Bower, and Gulp for working with front end assets
+* [Part II](https://ryanpmartz.com/booktrackr-client-part-02): Setting up Gulp to inject assets and initial AngularJS setup
