@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // anonymous users need to be able to log in
                 .antMatchers("/authenticate", "/users").permitAll()
                 // home page
-                .antMatchers("/").permitAll()
+                .antMatchers("/", "/app/**", "/bower_components/**", "/partials/**").permitAll()
                 // all other request paths are protected
                 .anyRequest().authenticated()
                 .and()
