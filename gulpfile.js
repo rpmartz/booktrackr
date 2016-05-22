@@ -1,9 +1,8 @@
 var gulp = require('gulp');
 var wiredep = require('wiredep').stream;
-
-gulp.task('default', function () {
-    console.log('Gulp is working.');
-});
+var inject = require('gulp-inject');
+var angularFilesort = require('gulp-angular-filesort');
+var runSequence = require('run-sequence');
 
 gulp.task('wiredep', function () {
     return gulp.src('src/main/resources/static/index.html')
@@ -19,5 +18,20 @@ gulp.task('wiredep', function () {
                 }
             }
         }))
-        .pipe(gulp.dest('./build/resources/main/resources/static'));
+        .pipe(gulp.dest('src/main/resources/static'));
 });
+
+gulp.task('inject', function () {
+    return gulp.src('src/main/resources/static/index.html')
+        .pipe(inject(
+            gulp.src('src/main/resources/static/app/js/**/*.js')
+                .pipe(angularFilesort())
+        ))
+        .pipe(gulp.dest('src/main/resources/static'));
+
+});
+
+gulp.task('build', function () {
+    runSequence('wiredep', 'inject');
+});
+
