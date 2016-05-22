@@ -8,6 +8,8 @@
   "homepage": "https://github.com/rpmartz/booktrackr",
   "private": true,
   "dependencies": {
-    "bootstrap": "^3.3.6"
+    "bootstrap": "^3.3.6",
+    "angular": "^1.5.5",
+    "angular-route": "^1.5.5"
   }
 }
