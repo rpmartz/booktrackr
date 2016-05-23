@@ -3,6 +3,7 @@ var wiredep = require('wiredep').stream;
 var inject = require('gulp-inject');
 var angularFilesort = require('gulp-angular-filesort');
 var runSequence = require('run-sequence');
+var Server = require('karma').Server;
 
 gulp.task('wiredep', function () {
     return gulp.src('src/main/resources/static/index.html')
@@ -29,6 +30,13 @@ gulp.task('inject', function () {
         ))
         .pipe(gulp.dest('src/main/resources/static'));
 
+});
+
+gulp.task('test', function (done) {
+    new Server({
+        configFile: __dirname + '/src/test/javascript/karma.conf.js',
+        singleRun: true
+    }, done).start();
 });
 
 gulp.task('build', function () {
