@@ -4,6 +4,7 @@ var inject = require('gulp-inject');
 var angularFilesort = require('gulp-angular-filesort');
 var runSequence = require('run-sequence');
 var Server = require('karma').Server;
+var protractor = require('gulp-protractor').protractor;
 
 gulp.task('wiredep', function () {
     return gulp.src('src/main/resources/static/index.html')
@@ -37,6 +38,19 @@ gulp.task('test', function (done) {
         configFile: __dirname + '/src/test/javascript/karma.conf.js',
         singleRun: true
     }, done).start();
+});
+
+gulp.task('itest', function () {
+    var configObj = {
+        configFile: 'src/integration-test/javascript/protractor.conf.js'
+    };
+
+    return gulp.src([])
+        .pipe(protractor(configObj))
+        .on('error', function () {
+            console.log('E2E Tests failed');
+            process.exit(1);
+        });
 });
 
 gulp.task('build', function () {
