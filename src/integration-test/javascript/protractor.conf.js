@@ -8,4 +8,4 @@ exports.config = {
     capabilities: {
         'browserName': 'firefox'
     }
-}
+};
