@@ -6,15 +6,19 @@ buildscript {
         mavenCentral()
         maven { url "https://repo.spring.io/snapshot" }
         maven { url "https://repo.spring.io/milestone" }
+        maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("com.moowork.gradle:gradle-gulp-plugin:0.11")
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
+apply plugin: 'com.moowork.gulp'
+apply plugin: 'com.moowork.node'
 
 jar {
     baseName = 'booktrackr'
@@ -80,8 +84,19 @@ task integrationTest(type: Test) {
     outputs.upToDateWhen { false }
 }
 
+// makes sure on each build that gulp is installed
+gulp_build.dependsOn 'installGulp'
+
+// processes your package.json before running gulp build
+gulp_build.dependsOn 'npmInstall'
+
+// runs "gulp build" as part of your gradle build
+build.dependsOn gulp_build
+
+integrationTest.mustRunAfter gulp_test
+gulp_test.mustRunAfter test
+
 check.dependsOn integrationTest
-integrationTest.mustRunAfter test
 
 tasks.withType(Test) {
     reports.html.destination = file("${reporting.baseDir}/${name}")

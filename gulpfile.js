@@ -3,6 +3,13 @@ var wiredep = require('wiredep').stream;
 var inject = require('gulp-inject');
 var angularFilesort = require('gulp-angular-filesort');
 var runSequence = require('run-sequence');
+var Server = require('karma').Server;
+var protractor = require('gulp-protractor').protractor;
+var bower = require('gulp-bower');
+
+gulp.task('bower', function () {
+    return bower();
+});
 
 gulp.task('wiredep', function () {
     return gulp.src('src/main/resources/static/index.html')
@@ -31,7 +38,27 @@ gulp.task('inject', function () {
 
 });
 
+gulp.task('test', function (done) {
+    new Server({
+        configFile: __dirname + '/src/test/javascript/karma.conf.js',
+        singleRun: true
+    }, done).start();
+});
+
+gulp.task('itest', function () {
+    var configObj = {
+        configFile: 'src/integration-test/javascript/protractor.conf.js'
+    };
+
+    return gulp.src([])
+        .pipe(protractor(configObj))
+        .on('error', function () {
+            console.log('E2E Tests failed');
+            process.exit(1);
+        });
+});
+
 gulp.task('build', function () {
-    runSequence('wiredep', 'inject');
+    runSequence('bower', 'wiredep', 'inject');
 });
 
