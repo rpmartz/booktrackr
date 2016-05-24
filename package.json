@@ -23,6 +23,7 @@
     "bluebird": "^3.4.0",
     "gulp": "^3.9.1",
     "gulp-angular-filesort": "^1.1.1",
+    "gulp-bower": "0.0.13",
     "gulp-inject": "^4.1.0",
     "gulp-protractor": "^2.3.0",
     "jasmine-core": "^2.4.1",

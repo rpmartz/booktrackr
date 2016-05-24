@@ -5,6 +5,11 @@ var angularFilesort = require('gulp-angular-filesort');
 var runSequence = require('run-sequence');
 var Server = require('karma').Server;
 var protractor = require('gulp-protractor').protractor;
+var bower = require('gulp-bower');
+
+gulp.task('bower', function () {
+    return bower();
+});
 
 gulp.task('wiredep', function () {
     return gulp.src('src/main/resources/static/index.html')
@@ -54,6 +59,6 @@ gulp.task('itest', function () {
 });
 
 gulp.task('build', function () {
-    runSequence('wiredep', 'inject');
+    runSequence('bower', 'wiredep', 'inject');
 });
 
