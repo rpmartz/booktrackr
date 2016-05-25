@@ -31,3 +31,4 @@ I'm creating this application in parts, and blogging about them [here](https://r
 
 * [Part I](https://ryanpmartz.com/booktrackr-client-part-01): Setting up NPM, Bower, and Gulp for working with front end assets
 * [Part II](https://ryanpmartz.com/booktrackr-client-part-02): Setting up Gulp to inject assets and initial AngularJS setup
+* [Part III](https://ryanpmartz.com/booktrackr-client-part-03): Hooking Gulp into the Gradle build and adding JS unit and end to end tests
