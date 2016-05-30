@@ -6,11 +6,14 @@
     Book.$inject = ['$http'];
 
     function Book($http) {
-
-        return {
-            allBooks: function () {
-                return $http.get('/books');
-            }
+        var service = {
+            all: allBooks
         };
+
+        function allBooks() {
+            return $http.get('/books');
+        }
+
+        return service;
     }
 })();
