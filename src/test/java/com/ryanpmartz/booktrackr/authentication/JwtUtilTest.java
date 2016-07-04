@@ -23,8 +23,7 @@ import static org.junit.Assert.assertTrue;
 public class JwtUtilTest {
 
     private static final UUID USER_ID = UUID.fromString("4db46fba-1ee5-476d-ad95-06a48bc5ae68");
-    private static final String EXPECTED_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QGJvb2t0cmFja3IuY29tIiwidXNlcl9pZCI6IjRkYjQ2ZmJhLTFlZTUtNDc2ZC1hZDk1LTA2YTQ4YmM1YWU2OCIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJlbWFpbCI6InRlc3RAYm9va3RyYWNrci5jb20iLCJleHAiOjE0NjQxNDg4MDB9.MZz8U6HEdYzKGogeGYb2JcRfWWp4rDjF_HN8_m0kkAr6-enKQt06m2ELUWFq8lG5eO6t3U6xpIkwUTexWoiDXw";
-
+    private static final String EXPECTED_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QGJvb2t0cmFja3IuY29tIiwidXNlcl9pZCI6IjRkYjQ2ZmJhLTFlZTUtNDc2ZC1hZDk1LTA2YTQ4YmM1YWU2OCIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJlbWFpbCI6InRlc3RAYm9va3RyYWNrci5jb20iLCJleHAiOjE0OTkxNDA4MDB9.aUjGqBdCQSLyThb2jCtyZnn4-xukQOgAQ8yMflmharaWfADZaOVdZ6vHZzorCSX_Na-HVNhLezytcu1JHV0HxQ";
     private JwtUtil jwtUtil = new JwtUtil("secret");
 
     @Test(expected = IllegalArgumentException.class)
