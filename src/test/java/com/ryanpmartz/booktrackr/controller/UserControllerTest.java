@@ -1,6 +1,7 @@
 package com.ryanpmartz.booktrackr.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ryanpmartz.booktrackr.authentication.JwtUtil;
 import com.ryanpmartz.booktrackr.domain.User;
 import com.ryanpmartz.booktrackr.service.UserService;
 import org.junit.Before;
@@ -39,6 +40,9 @@ public class UserControllerTest {
 
     @Mock
     private PasswordEncoder passwordEncoder;
+
+    @Mock
+    private JwtUtil jwtUtil;
 
     @InjectMocks
     private UserController userController;

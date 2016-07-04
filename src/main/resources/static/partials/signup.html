@@ -1,0 +1,96 @@
+<div class="row">
+    <div class="col-xs-6 col-xs-offset-3" ng-controller="SignupController as signup">
+        <h2>Booktrackr Signup</h2>
+        <form novalidate name="newUserForm">
+            <div class="form-group"
+                 ng-class="{ 'has-error' : newUserForm.firstName.$invalid && newUserForm.firstName.$touched }">
+                <label class="control-label" for="firstName">First Name</label>
+                <input type="text" ng-model="signup.newUser.firstName" class="form-control" id="firstName"
+                       name="firstName"
+                       placeholder="First Name" ng-required="true" ng-minlength="2" ng-maxlength="255">
+                <div class="help-block" ng-messages="newUserForm.firstName.$error"
+                     ng-if="newUserForm.firstName.$touched">
+                    <p ng-message="minlength" class="text-danger">First name is too short.</p>
+                    <p ng-message="maxlength" class="text-danger">First name is too long.</p>
+                    <p ng-message="required" class="text-danger">Please enter your first name.</p>
+                </div>
+                <div class="help-block" ng-messages="validationErrors.firstName"
+                     ng-if="newUserForm.$submitted && validationErrors.firstName">
+                    <p ng-message="result" class="text-danger">{{ validationErrors.firstName.result }}</p>
+                </div>
+            </div>
+            <div class="form-group"
+                 ng-class="{ 'has-error' : newUserForm.lastName.$invalid && newUserForm.lastName.$touched }">
+                <label class="control-label" for="lastName">Last Name</label>
+                <input type="text" ng-model="signup.newUser.lastName" class="form-control" id="lastName" name="lastName"
+                       placeholder="Last Name" ng-required="true" ng-minlength="2" ng-maxlength="255">
+                <div class="help-block" ng-messages="newUserForm.lastName.$error" ng-if="newUserForm.lastName.$touched">
+                    <p ng-message="minlength" class="text-danger">Last name is too short.</p>
+                    <p ng-message="maxlength" class="text-danger">Last name is too long.</p>
+                    <p ng-message="required" class="text-danger">Please enter your last name.</p>
+                </div>
+                <div class="help-block" ng-messages="validationErrors.lastName"
+                     ng-if="newUserForm.$submitted && validationErrors.lastName">
+                    <p ng-message="result" class="text-danger">{{ validationErrors.lastName.result }}</p>
+                </div>
+            </div>
+            <div class="form-group"
+                 ng-class="{ 'has-error' : (newUserForm.email.$invalid && newUserForm.email.$touched) || validationErrors.email }">
+                <label class="control-label" for="email">Email</label>
+                <input type="email" ng-model="signup.newUser.email" class="form-control" id="email" name="email"
+                       placeholder="Email"
+                       ng-required="true" ng-minlength="6" ng-maxlength="255">
+                <div class="help-block" ng-messages="newUserForm.email.$error" ng-if="newUserForm.email.$touched">
+                    <p ng-message="minlength" class="text-danger">Please enter your email address.</p>
+                    <p ng-message="maxlength" class="text-danger">Email is too long.</p>
+                    <p ng-message="required" class="text-danger">Please enter your email address.</p>
+                    <p ng-message="email" class="text-danger">Please enter a valid email address.</p>
+                    <p ng-message="used" class="text-danger">This email is already in use.</p>
+                </div>
+                <div class="help-block" ng-messages="validationErrors.email"
+                     ng-if="newUserForm.$submitted && validationErrors.email">
+                    <p ng-message="result" class="text-danger">{{ validationErrors.email.result }}</p>
+                </div>
+            </div>
+            <div class="form-group"
+                 ng-class="{ 'has-error' : newUserForm.password.$invalid && newUserForm.password.$touched }">
+                <label class="control-label" for="password">Password</label>
+                <input type="password" ng-model="signup.newUser.password" class="form-control" id="password"
+                       name="password" placeholder="Password" ng-required="true" ng-minlength="8">
+                <div class="help-block" ng-messages="newUserForm.password.$error" ng-if="newUserForm.password.$touched">
+                    <p ng-message="minlength" class="text-danger">Password must be at least 8 characters.</p>
+                    <p ng-message="maxlength" class="text-danger">Password is too long.</p>
+                    <p ng-message="required" class="text-danger">Please enter a password.</p>
+                </div>
+                <div class="help-block" ng-messages="validationErrors.password"
+                     ng-if="newUserForm.$submitted && validationErrors.password">
+                    <p ng-message="result" class="text-danger">{{ validationErrors.password.result }}</p>
+                </div>
+
+            </div>
+            <div class="form-group"
+                 ng-class="{ 'has-error' : newUserForm.confirmPassword.$invalid && newUserForm.confirmPassword.$touched }">
+                <label class="control-label" for="confirmPassword">Confirm Password</label>
+                <input type="password" ng-model="signup.newUser.confirmPassword" class="form-control"
+                       id="confirmPassword"
+                       name="confirmPassword"
+                       placeholder="Confirm Password" ng-required="true" ng-minlength="8">
+            </div>
+            <div class="help-block" ng-messages="newUserForm.confirmPassword.$error"
+                 ng-if="newUserForm.confirmPassword.$touched">
+                <p ng-message="minlength" class="text-danger">Password must be at least 8 characters.</p>
+                <p ng-message="maxlength" class="text-danger">Password is too long.</p>
+                <p ng-message="required" class="text-danger">Please confirm your password.</p>
+            </div>
+            <div class="help-block" ng-messages="validationErrors.confirmPassword"
+                 ng-if="newUserForm.$submitted && validationErrors.confirmPassword">
+                <p ng-message="result" class="text-danger">{{ validationErrors.confirmPassword.result }}</p>
+            </div>
+            <div class="form-group pull-right">
+                <a href="#/" class="btn btn-danger">Cancel</a>
+                <button class="btn btn-info" ng-click="signup.signup()" ng-disabled="newUserForm.$invalid">Submit
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

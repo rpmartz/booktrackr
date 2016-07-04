@@ -2,6 +2,7 @@ package com.ryanpmartz.booktrackr.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ryanpmartz.booktrackr.authentication.JwtUtil;
 import com.ryanpmartz.booktrackr.controller.dto.SignupDto;
 import com.ryanpmartz.booktrackr.controller.dto.UserDto;
 import com.ryanpmartz.booktrackr.domain.User;
@@ -29,13 +30,15 @@ public class UserController {
 
     private static final String EMAIL_EXISTS_MESSAGE = "This email is in use";
 
-    private final UserService userService;
+    private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
 
     @Autowired
-    public UserController(final UserService userService, final PasswordEncoder encoder) {
+    public UserController(final UserService userService, final PasswordEncoder encoder, final JwtUtil jwtUtil) {
         this.userService = userService;
         this.passwordEncoder = encoder;
+        this.jwtUtil = jwtUtil;
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
@@ -75,8 +78,11 @@ public class UserController {
         signupDto.setConfirmPassword(null);
 
         User savedUser = userService.createUser(user);
+        String jwt = jwtUtil.generateToken(user);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .contentType(MediaType.APPLICATION_JSON_UTF8).body(new UserDto(savedUser));
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .header("Authorization", "Bearer " + jwt)
+                .body(new UserDto(savedUser));
     }
 }
