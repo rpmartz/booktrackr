@@ -35,4 +35,26 @@
 
         return service;
     }
+
+    angular.module('booktrackrApp').factory('TokenService', TokenService);
+    TokenService.$inject = ['store'];
+
+    function TokenService(store) {
+
+        var service = {
+            setCurrentUserToken: setCurrentUserToken,
+            getCurrentUserToken: getCurrentUserToken
+        };
+
+        function setCurrentUserToken(token) {
+            store.set('currentUserToken', token);
+        }
+
+        function getCurrentUserToken() {
+            return store.get('currentUserToken');
+        }
+
+        return service
+    }
+
 })();
