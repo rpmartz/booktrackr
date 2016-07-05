@@ -13,6 +13,9 @@
             .when('/books', {
                 templateUrl: 'partials/books.html'
             })
+            .when('/books/new', {
+                templateUrl: 'partials/new-book.html'
+            })
             .when('/login', {
                 templateUrl: 'partials/login.html'
             })

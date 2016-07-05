@@ -6,11 +6,16 @@
 
     function Book($http) {
         var service = {
-            all: allBooks
+            all: allBooks,
+            create: create
         };
 
         function allBooks() {
             return $http.get('/books');
+        }
+
+        function create(newBook) {
+            return $http.post('/books', newBook);
         }
 
         return service;

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Booktrackr</title>
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
     <!-- endbower -->
 
     <!-- inject:css -->
@@ -12,9 +13,17 @@
 <body ng-app="booktrackrApp">
 <div class="container" ng-view></div>
 <!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-messages/angular-messages.js"></script>
+<script src="bower_components/a0-angular-storage/dist/angular-storage.js"></script>
 <!-- endbower -->
 
 <!-- inject:js -->
+<script src="app/js/app.js"></script>
+<script src="app/js/services/services.js"></script>
+<script src="app/js/controllers.js"></script>
 <!-- endinject -->
 </body>
 </html>

@@ -5,7 +5,8 @@
         .controller('HomeController', HomeController)
         .controller('SignupController', SignupController)
         .controller('LoginController', LoginController)
-        .controller('BooksController', BooksController);
+        .controller('BooksController', BooksController)
+        .controller('NewBookController', NewBookController);
 
     HomeController.$inject = ['Book', '$log'];
     function HomeController(Book, $log) {
@@ -63,13 +64,33 @@
     BooksController.$inject = ['Book', '$log'];
     function BooksController(Book, $log) {
         var vm = this;
+        vm.books = [];
 
         Book.all().then(function (res) {
             $log.debug('Books response: ', res);
+            vm.books = res.data;
 
         }, function (err) {
             $log.error('all books call failed', err);
         });
     }
+
+    NewBookController.$inject = ['Book', '$location', '$log'];
+    function NewBookController(Book, $location, $log) {
+        var vm = this;
+        vm.book = {};
+
+        vm.save = function () {
+            Book.create(vm.book).then(function (res) {
+                $log.debug('created new book');
+                $location.path('/books');
+            }, function (err) {
+                $log.debug('error creating new book', err);
+            })
+        }
+
+
+    }
+
 
 })();
