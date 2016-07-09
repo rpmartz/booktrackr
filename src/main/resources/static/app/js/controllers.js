@@ -17,7 +17,7 @@
             vm.books = res.data;
         }, function (err) {
             $log.info(err)
-        })
+        });
     }
 
     SignupController.$inject = ['AuthService', '$log'];
@@ -33,7 +33,7 @@
                     },
                     function (err) {
                         $log.error('Signup failed ', err);
-                    })
+                    });
 
         }
 
