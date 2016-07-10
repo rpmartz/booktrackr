@@ -5,7 +5,10 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <span class="panel-title">{{ book.title }}</span>
-                    <a class="pull-right btn btn-sm btn-info">
+                    <a class="pull-right btn btn-sm btn-danger">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                    <a class="pull-right btn btn-sm btn-success">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
                 </div>
@@ -14,6 +17,8 @@
                 </div>
             </div>
         </div>
-        <a class="btn btn-primary pull-right" href="#/books/new">Add Book</a>
+        <a class="btn btn-primary pull-right" href="#/books/new">
+            <span class="glyphicon glyphicon-plus"></span> Add Book
+        </a>
     </div>
 </div>
