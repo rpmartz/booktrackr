@@ -13,15 +13,14 @@
         var vm = this;
 
         Book.all().then(function (res) {
-            $log.info(res.data);
             vm.books = res.data;
         }, function (err) {
-            $log.info(err)
+            $log.error('all books call failed: ', err);
         });
     }
 
-    SignupController.$inject = ['AuthService', '$log'];
-    function SignupController(AuthService, $log) {
+    SignupController.$inject = ['AuthService', '$log', '$location'];
+    function SignupController(AuthService, $log, $location) {
         var vm = this;
 
         vm.newUser = {};
@@ -29,7 +28,7 @@
         vm.signup = function () {
             AuthService.signup(vm.newUser)
                 .then(function (res) {
-                        $log.info('Signup succeeded', res);
+                        $location.path('/books');
                     },
                     function (err) {
                         $log.error('Signup failed ', err);
@@ -53,7 +52,7 @@
                         $location.path('/books');
                     },
                     function (err) {
-                        $log.debug('Auth Failed');
+                        $log.error('Auth Failed ', err);
                         // todo show failed auth message
                     })
         }
@@ -67,7 +66,6 @@
         vm.books = [];
 
         Book.all().then(function (res) {
-            $log.debug('Books response: ', res);
             vm.books = res.data;
 
         }, function (err) {
@@ -82,7 +80,6 @@
 
         vm.save = function () {
             Book.create(vm.book).then(function (res) {
-                $log.debug('created new book');
                 $location.path('/books');
             }, function (err) {
                 $log.debug('error creating new book', err);
