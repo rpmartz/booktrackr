@@ -1,9 +1,19 @@
-<div class="row">
-    <div class="col-xs-6 col-xs-offset-3" ng-controller="BooksController as books">
-        <h2>Books</h2>
-        <ul ng-repeat="book in books.books">
-            <li>{{ book.title }}</li>
-        </ul>
-        <a class="btn btn-primary" href="#/books/new">Add Book</a>
+<div class="row" ng-controller="BooksController as books">
+    <div class="col-xs-6 col-xs-offset-3">
+        <h3>My Books</h3>
+        <div ng-repeat="book in books.books">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <span class="panel-title">{{ book.title }}</span>
+                    <a class="pull-right btn btn-sm btn-info">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                </div>
+                <div class="panel-body">
+                    {{ book.author }}
+                </div>
+            </div>
+        </div>
+        <a class="btn btn-primary pull-right" href="#/books/new">Add Book</a>
     </div>
 </div>

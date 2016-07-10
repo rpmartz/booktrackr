@@ -14,6 +14,7 @@
 
         Book.all().then(function (res) {
             vm.books = res.data;
+
         }, function (err) {
             $log.error('all books call failed: ', err);
         });
@@ -56,8 +57,6 @@
                         // todo show failed auth message
                     })
         }
-
-
     }
 
     BooksController.$inject = ['Book', '$log'];
@@ -67,7 +66,6 @@
 
         Book.all().then(function (res) {
             vm.books = res.data;
-
         }, function (err) {
             $log.error('all books call failed', err);
         });
@@ -79,15 +77,12 @@
         vm.book = {};
 
         vm.save = function () {
-            Book.create(vm.book).then(function (res) {
+            Book.create(vm.book).then(function () {
                 $location.path('/books');
             }, function (err) {
                 $log.debug('error creating new book', err);
             })
         }
-
-
     }
-
 
 })();
