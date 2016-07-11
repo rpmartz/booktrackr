@@ -16,6 +16,9 @@
             .when('/books/new', {
                 templateUrl: 'partials/new-book.html'
             })
+            .when('/books/:bookId', {
+                templateUrl: 'partials/view-book.html'
+            })
             .when('/login', {
                 templateUrl: 'partials/login.html'
             })

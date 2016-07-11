@@ -6,7 +6,8 @@
         .controller('SignupController', SignupController)
         .controller('LoginController', LoginController)
         .controller('BooksController', BooksController)
-        .controller('NewBookController', NewBookController);
+        .controller('NewBookController', NewBookController)
+        .controller('ViewBookController', ViewBookController);
 
     HomeController.$inject = ['Book', '$log'];
     function HomeController(Book, $log) {
@@ -23,7 +24,6 @@
     SignupController.$inject = ['AuthService', '$log', '$location'];
     function SignupController(AuthService, $log, $location) {
         var vm = this;
-
         vm.newUser = {};
 
         vm.signup = function () {
@@ -83,6 +83,22 @@
                 $log.debug('error creating new book', err);
             })
         }
+    }
+
+    ViewBookController.$inject = ['Book', '$location', '$routeParams'];
+    function ViewBookController(Book, $location, $routeParams) {
+        var vm = this;
+        vm.book = {};
+
+        Book.getBook($routeParams.bookId).then(
+            function (res) {
+                vm.book = res.data;
+                console.log('book by id response data: ', res.data);
+            },
+            function (err) {
+                $log.error('Error getting book by ID');
+            }
+        )
     }
 
 })();

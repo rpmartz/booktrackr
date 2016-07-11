@@ -7,7 +7,8 @@
     function Book($http) {
         var service = {
             all: allBooks,
-            create: create
+            create: create,
+            getBook: getBook
         };
 
         function allBooks() {
@@ -16,6 +17,11 @@
 
         function create(newBook) {
             return $http.post('/books', newBook);
+        }
+
+        function getBook(id) {
+            var bookId = '/books/' + id;
+            return $http.get(bookId);
         }
 
         return service;
