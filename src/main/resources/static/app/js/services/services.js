@@ -8,7 +8,8 @@
         var service = {
             all: allBooks,
             create: create,
-            getBook: getBook
+            getBook: getBook,
+            update: update
         };
 
         function allBooks() {
@@ -22,6 +23,11 @@
         function getBook(id) {
             var bookId = '/books/' + id;
             return $http.get(bookId);
+        }
+
+        function update(id, book) {
+            var path = '/books/' + id;
+            return $http.put(path, book);
         }
 
         return service;

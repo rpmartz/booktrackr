@@ -90,15 +90,23 @@
         var vm = this;
         vm.book = {};
 
+        var currentBookId = $routeParams.bookId;
         Book.getBook($routeParams.bookId).then(
             function (res) {
                 vm.book = res.data;
-                console.log('book by id response data: ', res.data);
             },
             function (err) {
                 $log.error('Error getting book by ID');
             }
-        )
+        );
+
+        vm.save = function () {
+            Book.update(currentBookId, vm.book).then(function (res) {
+                $location.path('/books');
+            }, function (err) {
+                $log.error('save book failed', err);
+            })
+        }
     }
 
 })();
