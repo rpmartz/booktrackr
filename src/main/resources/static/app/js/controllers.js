@@ -59,8 +59,8 @@
         }
     }
 
-    BooksController.$inject = ['Book', '$log'];
-    function BooksController(Book, $log) {
+    BooksController.$inject = ['Book', '$log', '$uibModal'];
+    function BooksController(Book, $log, $uibModal) {
         var vm = this;
         vm.books = [];
 
@@ -69,6 +69,18 @@
         }, function (err) {
             $log.error('all books call failed', err);
         });
+
+        vm.openDeleteModal = function (book) {
+            var modalInstance = $uibModal.open({
+                templateUrl: 'deleteBookModal.html',
+                controller: 'BooksController',
+                resolve: {
+                    book: function () {
+                        return book;
+                    }
+                }
+            });
+        }
     }
 
     NewBookController.$inject = ['Book', '$location', '$log'];
@@ -106,7 +118,7 @@
             }, function (err) {
                 $log.error('save book failed', err);
             })
-        }
+        };
     }
 
 })();

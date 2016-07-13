@@ -5,7 +5,7 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <span class="panel-title">{{ book.title }}</span>
-                    <a class="pull-right btn btn-sm btn-danger">
+                    <a class="pull-right btn btn-sm btn-danger" ng-click="books.openDeleteModal(book)">
                         <span class="glyphicon glyphicon-trash"></span>
                     </a>
                     <a class="pull-right btn btn-sm btn-success" href="#/books/{{ book.id }}">
@@ -21,4 +21,16 @@
             <span class="glyphicon glyphicon-plus"></span> Add Book
         </a>
     </div>
+    <script type="text/ng-template" id="deleteBookModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Delete Book?</h3>
+        </div>
+        <div class="modal-body">
+            Really?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="books.cancel()">Cancel</button>
+        </div>
+    </script>
 </div>

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('booktrackrApp', ['ngRoute', 'ngMessages', 'angular-storage']);
+    angular.module('booktrackrApp', ['ngRoute', 'ngMessages', 'angular-storage', 'ui.bootstrap']);
 
     angular.module('booktrackrApp').config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
         $routeProvider
