@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('booktrackrApp', ['ngRoute', 'ngMessages', 'angular-storage', 'ui.bootstrap']);
+    angular.module('booktrackrApp', ['ngRoute', 'ngMessages', 'angular-storage', 'ui.bootstrap', 'ngSanitize', 'btford.markdown']);
 
     angular.module('booktrackrApp').config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
         $routeProvider
@@ -17,6 +17,9 @@
                 templateUrl: 'partials/new-book.html'
             })
             .when('/books/:bookId', {
+                templateUrl: 'partials/edit-book.html'
+            })
+            .when('/books/:bookId/view', {
                 templateUrl: 'partials/view-book.html'
             })
             .when('/login', {

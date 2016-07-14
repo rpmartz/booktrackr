@@ -7,6 +7,7 @@
         .controller('LoginController', LoginController)
         .controller('BooksController', BooksController)
         .controller('NewBookController', NewBookController)
+        .controller('ViewBookController', ViewBookController)
         .controller('EditBookController', EditBookController)
         .controller('DeleteBookController', DeleteBookController);
 
@@ -147,6 +148,20 @@
                 $log.error('save book failed', err);
             })
         };
+    }
+
+    ViewBookController.$inject = ['Book', '$location', '$log', '$routeParams'];
+    function ViewBookController(Book, $location, $log, $routeParams) {
+        var vm = this;
+
+        Book.getBook($routeParams.bookId).then(
+            function (res) {
+                vm.book = res.data;
+            },
+            function (err) {
+                $log.error('Error fetching book');
+            }
+        );
     }
 
 })();
