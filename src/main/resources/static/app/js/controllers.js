@@ -7,7 +7,7 @@
         .controller('LoginController', LoginController)
         .controller('BooksController', BooksController)
         .controller('NewBookController', NewBookController)
-        .controller('ViewBookController', ViewBookController)
+        .controller('EditBookController', EditBookController)
         .controller('DeleteBookController', DeleteBookController);
 
     HomeController.$inject = ['Book', '$log'];
@@ -124,8 +124,8 @@
         }
     }
 
-    ViewBookController.$inject = ['Book', '$location', '$routeParams'];
-    function ViewBookController(Book, $location, $routeParams) {
+    EditBookController.$inject = ['Book', '$location', '$routeParams'];
+    function EditBookController(Book, $location, $routeParams) {
         var vm = this;
         vm.book = {};
 
