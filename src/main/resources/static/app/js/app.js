@@ -16,7 +16,7 @@
             .when('/books/new', {
                 templateUrl: 'partials/new-book.html'
             })
-            .when('/books/:bookId', {
+            .when('/books/:bookId/edit', {
                 templateUrl: 'partials/edit-book.html'
             })
             .when('/books/:bookId/view', {
