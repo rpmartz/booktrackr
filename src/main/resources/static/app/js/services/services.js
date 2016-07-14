@@ -8,6 +8,7 @@
         var service = {
             all: allBooks,
             create: create,
+            delete: deleteBook,
             getBook: getBook,
             update: update
         };
@@ -18,6 +19,11 @@
 
         function create(newBook) {
             return $http.post('/books', newBook);
+        }
+
+        function deleteBook(book) {
+            var url = '/books/' + book.id;
+            return $http.delete(url);
         }
 
         function getBook(id) {

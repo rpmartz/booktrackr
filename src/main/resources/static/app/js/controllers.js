@@ -7,7 +7,8 @@
         .controller('LoginController', LoginController)
         .controller('BooksController', BooksController)
         .controller('NewBookController', NewBookController)
-        .controller('ViewBookController', ViewBookController);
+        .controller('ViewBookController', ViewBookController)
+        .controller('DeleteBookController', DeleteBookController);
 
     HomeController.$inject = ['Book', '$log'];
     function HomeController(Book, $log) {
@@ -73,14 +74,40 @@
         vm.openDeleteModal = function (book) {
             var modalInstance = $uibModal.open({
                 templateUrl: 'deleteBookModal.html',
-                controller: 'BooksController',
+                controller: 'DeleteBookController',
                 resolve: {
-                    book: function () {
-                        return book;
-                    }
+                    book: book
                 }
             });
+
+            modalInstance.result.then(function (bookToDelete) {
+                for (var i = 0; i <= vm.books.length - 1; i++) {
+                    if (vm.books[i].id == bookToDelete.id) {
+                        vm.books.splice(i, 1);
+                    }
+                }
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
         }
+    }
+
+    DeleteBookController.$inject = ['Book', '$log', '$location', '$scope', '$uibModalInstance', 'book'];
+    function DeleteBookController(Book, $log, $location, $scope, $uibModalInstance, book) {
+        $scope.book = book;
+
+        $scope.ok = function () {
+            Book.delete(book).then(function (res) {
+                $uibModalInstance.close($scope.book);
+            }, function (err) {
+                $log.error('Error deleting book ', err);
+            });
+
+        };
+
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
     }
 
     NewBookController.$inject = ['Book', '$location', '$log'];
