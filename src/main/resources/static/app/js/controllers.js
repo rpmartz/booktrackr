@@ -84,6 +84,7 @@
                 for (var i = 0; i <= vm.books.length - 1; i++) {
                     if (vm.books[i].id == bookToDelete.id) {
                         vm.books.splice(i, 1);
+                        break;
                     }
                 }
             }, function () {
