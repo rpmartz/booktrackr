@@ -4,7 +4,7 @@
         <div ng-repeat="book in books.books">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <a href="#/books/{{ book.id }}/view"><span class="panel-title">{{ book.title }}</span></a>
+                    <a href="#/books/{{ book.id }}/view" style="color:#ebebeb"><span class="panel-title">{{ book.title }}</span></a>
                     <a class="pull-right btn btn-sm btn-danger" ng-click="books.openDeleteModal(book)">
                         <span class="glyphicon glyphicon-trash"></span>
                     </a>
