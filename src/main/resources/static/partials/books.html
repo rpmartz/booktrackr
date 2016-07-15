@@ -1,6 +1,8 @@
 <div class="row" ng-controller="BooksController as books">
     <div class="col-xs-6 col-xs-offset-3">
-        <h3>My Books</h3>
+        <div class="page-header">
+            <h3>My Books</h3>
+        </div>
         <div ng-repeat="book in books.books">
             <div class="panel panel-info">
                 <div class="panel-heading">
@@ -29,8 +31,8 @@
             Really?
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            <button class="btn btn-info" type="button" ng-click="ok()">OK</button>
+            <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
         </div>
     </script>
 </div>
