@@ -65,9 +65,20 @@
     function BooksController(Book, $log, $uibModal) {
         var vm = this;
         vm.books = [];
+        vm.visibleBooks = [];
+        vm.currentPage = 1;
+
+        vm.updatePage = function (currentPage) {
+            var endIndex = (5 * currentPage);
+            var startIndex = endIndex - 5;
+            vm.visibleBooks = vm.books.slice(startIndex, endIndex);
+        };
 
         Book.all().then(function (res) {
             vm.books = res.data;
+            vm.totalBooks = res.data.length;
+            vm.updatePage(vm.currentPage);
+
         }, function (err) {
             $log.error('all books call failed', err);
         });
@@ -94,8 +105,8 @@
         }
     }
 
-    DeleteBookController.$inject = ['Book', '$log', '$location', '$scope', '$uibModalInstance', 'book'];
-    function DeleteBookController(Book, $log, $location, $scope, $uibModalInstance, book) {
+    DeleteBookController.$inject = ['Book', '$log', '$scope', '$uibModalInstance', 'book'];
+    function DeleteBookController(Book, $log, $scope, $uibModalInstance, book) {
         $scope.book = book;
 
         $scope.ok = function () {

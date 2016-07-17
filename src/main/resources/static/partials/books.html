@@ -3,7 +3,7 @@
         <div class="page-header">
             <h3>My Books</h3>
         </div>
-        <div ng-repeat="book in books.books">
+        <div ng-repeat="book in books.visibleBooks">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <a href="#/books/{{ book.id }}/view" style="color:#ebebeb"><span class="panel-title">{{ book.title }}</span></a>
@@ -19,6 +19,8 @@
                 </div>
             </div>
         </div>
+        <uib-pagination total-items="books.totalBooks" ng-model="books.currentPage" items-per-page="5"
+                        ng-change="books.updatePage(books.currentPage)"></uib-pagination>
         <a class="btn btn-primary pull-right" href="#/books/new">
             <span class="glyphicon glyphicon-plus"></span> Add Book
         </a>
