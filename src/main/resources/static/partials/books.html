@@ -27,10 +27,10 @@
     </div>
     <script type="text/ng-template" id="deleteBookModal.html">
         <div class="modal-header">
-            <h3 class="modal-title">Delete Book?</h3>
+            <h3 class="modal-title">Confirm Deletion</h3>
         </div>
         <div class="modal-body">
-            Really?
+            Are you sure you want to delete {{ book.title }}?
         </div>
         <div class="modal-footer">
             <button class="btn btn-info" type="button" ng-click="ok()">OK</button>
