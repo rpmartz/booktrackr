@@ -6,6 +6,7 @@ var runSequence = require('run-sequence');
 var Server = require('karma').Server;
 var protractor = require('gulp-protractor').protractor;
 var bower = require('gulp-bower');
+var useref = require('gulp-useref');
 
 gulp.task('bower', function () {
     return bower();
@@ -56,6 +57,12 @@ gulp.task('itest', function () {
             console.log('E2E Tests failed');
             process.exit(1);
         });
+});
+
+gulp.task('concat', function () {
+    return gulp.src('src/main/resources/static/index.html')
+        .pipe(useref())
+        .pipe(gulp.dest('src/main/resources/static'));
 });
 
 gulp.task('build', function () {

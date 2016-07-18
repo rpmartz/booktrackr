@@ -26,6 +26,7 @@
     "gulp-bower": "0.0.13",
     "gulp-inject": "^4.1.0",
     "gulp-protractor": "^2.3.0",
+    "gulp-useref": "^3.1.0",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.22",
     "karma-jasmine": "^1.0.2",
