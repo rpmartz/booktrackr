@@ -65,7 +65,11 @@ gulp.task('concat', function () {
         .pipe(gulp.dest('src/main/resources/static'));
 });
 
-gulp.task('build', function () {
+gulp.task('build:dev', function () {
     runSequence('bower', 'wiredep', 'inject');
+});
+
+gulp.task('build', function () {
+    runSequence('bower', 'wiredep', 'inject', 'concat');
 });
 
