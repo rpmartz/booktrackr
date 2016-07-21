@@ -1,7 +1,6 @@
 # Booktrackr
 
 [![Build Status](https://travis-ci.org/rpmartz/booktrackr.svg?branch=master)](https://travis-ci.org/rpmartz/booktrackr)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7af28710cc684d29be9015fb8edfd415)](https://www.codacy.com/app/martzrp/booktrackr)
 
 ## Overview
 
@@ -33,3 +32,4 @@ I'm creating this application in parts, and blogging about them [here](https://r
 * [Part II](https://ryanpmartz.com/booktrackr-client-part-02): Setting up Gulp to inject assets and initial AngularJS setup
 * [Part III](https://ryanpmartz.com/booktrackr-client-part-03): Hooking Gulp into the Gradle build and adding JS unit and end to end tests
 * [Part IV](http://ryanpmartz.com/booktrackr-client-part-04): Set up AngularJS to use JWTs for authentication
+* [Part V](http://ryanpmartz.com/booktrackr-client-part-05): Build (most of) the rest of the AngularJS app's functionality
