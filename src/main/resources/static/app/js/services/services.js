@@ -6,11 +6,34 @@
 
     function Book($http) {
         var service = {
-            all: allBooks
+            all: allBooks,
+            create: create,
+            delete: deleteBook,
+            getBook: getBook,
+            update: update
         };
 
         function allBooks() {
             return $http.get('/books');
+        }
+
+        function create(newBook) {
+            return $http.post('/books', newBook);
+        }
+
+        function deleteBook(book) {
+            var url = '/books/' + book.id;
+            return $http.delete(url);
+        }
+
+        function getBook(id) {
+            var bookId = '/books/' + id;
+            return $http.get(bookId);
+        }
+
+        function update(id, book) {
+            var path = '/books/' + id;
+            return $http.put(path, book);
         }
 
         return service;

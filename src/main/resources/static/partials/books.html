@@ -1,8 +1,40 @@
-<div class="row">
-    <div class="col-xs-6 col-xs-offset-3" ng-controller="BooksController as books">
-        <h2>Books</h2>
-        <ul ng-repeat="book in books.books">
-            <li>{{ book.title }}</li>
-        </ul>
+<div class="row" ng-controller="BooksController as books">
+    <div class="col-xs-6 col-xs-offset-3">
+        <div class="page-header">
+            <h3>My Books</h3>
+        </div>
+        <div ng-repeat="book in books.visibleBooks">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <a href="#/books/{{ book.id }}/view" style="color:#ebebeb"><span class="panel-title">{{ book.title }}</span></a>
+                    <a class="pull-right btn btn-sm btn-danger" ng-click="books.openDeleteModal(book)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                    <a class="pull-right btn btn-sm btn-success" href="#/books/{{ book.id }}/edit">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                </div>
+                <div class="panel-body">
+                    {{ book.author }}
+                </div>
+            </div>
+        </div>
+        <uib-pagination total-items="books.totalBooks" ng-model="books.currentPage" items-per-page="5"
+                        ng-change="books.updatePage(books.currentPage)"></uib-pagination>
+        <a class="btn btn-primary pull-right" href="#/books/new">
+            <span class="glyphicon glyphicon-plus"></span> Add Book
+        </a>
     </div>
+    <script type="text/ng-template" id="deleteBookModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Confirm Deletion</h3>
+        </div>
+        <div class="modal-body">
+            Are you sure you want to delete {{ book.title }}?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-info" type="button" ng-click="ok()">OK</button>
+            <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
 </div>

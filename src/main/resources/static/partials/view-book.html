@@ -1,0 +1,14 @@
+<div class="row" ng-controller="ViewBookController as book">
+    <div class="col-xs-12">
+        <div class="page-header">
+            <h2>{{ book.book.title }}</h2>
+            <h3>{{ book.book.author }}</h3>
+        </div>
+        <div class="well" btf-markdown="book.book.notes">
+
+        </div>
+        <div class="pull-right">
+            <a class="pull-right" href="#/books">Back to All Books</a>
+        </div>
+    </div>
+</div>
