@@ -132,7 +132,7 @@
             Book.create(vm.book).then(function () {
                 $location.path('/books');
             }, function (err) {
-                $log.debug('error creating new book', err);
+                $log.error('error creating new book', err);
             })
         }
     }
@@ -148,7 +148,7 @@
                 vm.book = res.data;
             },
             function (err) {
-                $log.error('Error getting book by ID');
+                $log.error('Error getting book by ID', err);
             }
         );
 
@@ -161,8 +161,8 @@
         };
     }
 
-    ViewBookController.$inject = ['Book', '$location', '$log', '$routeParams'];
-    function ViewBookController(Book, $location, $log, $routeParams) {
+    ViewBookController.$inject = ['Book', '$log', '$routeParams'];
+    function ViewBookController(Book, $log, $routeParams) {
         var vm = this;
 
         Book.getBook($routeParams.bookId).then(
@@ -170,7 +170,7 @@
                 vm.book = res.data;
             },
             function (err) {
-                $log.error('Error fetching book');
+                $log.error('Error fetching book', err);
             }
         );
     }
