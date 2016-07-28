@@ -2,12 +2,7 @@ describe('Controller Tests', function () {
 
     beforeEach(angular.mock.module('booktrackrApp'));
 
-
-    // beforeEach(angular.mock.inject(function(_$controller_){
-    //     $controller = _$controller_;
-    // }));
-
-    describe('HomeControllerTests', function () {
+    describe('HomeController Tests', function () {
         var HomeController, MockBookService, $scope;
 
 
@@ -18,7 +13,7 @@ describe('Controller Tests', function () {
             MockBookService = {
                 all: function () {
                     var deferred = $q.defer();
-                    deferred.resolve([]);
+                    deferred.resolve({data: []});
                     return deferred.promise;
                 }
             };
