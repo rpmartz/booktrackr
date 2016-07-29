@@ -52,4 +52,28 @@ describe('Controller Tests', function () {
         })
     });
 
+    describe('SignupController Test', function () {
+        var SignupController, MockAuthService, $scope;
+
+        beforeEach(inject(function ($q, $controller, $rootScope) {
+            $scope = $rootScope.$new();
+
+            MockAuthService = {
+                signup: function () {
+                    var deferred = $q.defer();
+                    deferred.rewsolve({data: {}});
+                    return deferred.promise;
+                }
+            };
+
+            SignupController = $controller('SignupController', {AuthService: MockAuthService, $scope: $scope});
+        }));
+
+        it('should signup then redirect to "/books"', function () {
+            $scope.$apply();
+            expect(SignupController.newUser).toBeDefined();
+
+        })
+    })
+
 });
