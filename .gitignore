@@ -20,4 +20,5 @@ gradle-app.setting
 node_modules/
 bower_components/
 
-
+booktrackr.js
+vendor.js
