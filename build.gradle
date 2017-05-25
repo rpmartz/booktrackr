@@ -92,7 +92,7 @@ gulp_build.dependsOn 'installGulp'
 gulp_build.dependsOn 'npmInstall'
 
 // runs "gulp build" as part of your gradle build
-build.dependsOn gulp_build
+stage.dependsOn gulp_build
 
 integrationTest.mustRunAfter gulp_test
 gulp_test.mustRunAfter test
