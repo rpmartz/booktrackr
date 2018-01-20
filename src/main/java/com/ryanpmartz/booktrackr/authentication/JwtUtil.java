@@ -1,5 +1,20 @@
 package com.ryanpmartz.booktrackr.authentication;
 
+import static java.util.stream.Collectors.toSet;
+
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
+
 import com.ryanpmartz.booktrackr.domain.User;
 import com.ryanpmartz.booktrackr.domain.UserRole;
 import com.ryanpmartz.booktrackr.domain.UserRoleEnum;
@@ -10,20 +25,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.DefaultJwtParser;
 import io.jsonwebtoken.lang.Assert;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
-
-import java.time.LocalDate;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-
-import static java.util.stream.Collectors.toSet;
 
 @Component
 public class JwtUtil {
