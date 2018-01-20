@@ -1,0 +1,2 @@
+jwt:
+  signing-secret: supersecret
