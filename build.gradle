@@ -56,7 +56,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-devtools")
     compile('org.postgresql:postgresql:9.4.1208')
-//    compile('org.flywaydb:flyway-core')
+    compile('org.flywaydb:flyway-core')
     compile('io.springfox:springfox-swagger2:2.4.0')
     compile('io.springfox:springfox-swagger-ui:2.4.0')
     compile('io.dropwizard.metrics:metrics-core')
