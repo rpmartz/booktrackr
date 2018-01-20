@@ -1,14 +1,14 @@
 package com.ryanpmartz.booktrackr.repository;
 
-import com.ryanpmartz.booktrackr.domain.Book;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.UUID;
+import com.ryanpmartz.booktrackr.domain.Book;
 
 @Repository
-public interface BookRepository extends JpaRepository<Book, UUID> {
+public interface BookRepository extends JpaRepository<Book, Long> {
 
-    List<Book> findByUserId(UUID userId);
+	List<Book> findByUserId(Long userId);
 }

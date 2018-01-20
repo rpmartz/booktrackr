@@ -1,21 +1,21 @@
 package com.ryanpmartz.booktrackr.authentication;
 
-import io.jsonwebtoken.lang.Assert;
+import java.util.Collection;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
-import java.util.Collection;
-import java.util.UUID;
+import io.jsonwebtoken.lang.Assert;
 
 public class JwtAuthenticationToken implements Authentication {
 
     private final String email;
     private final Collection<? extends GrantedAuthority> roles;
-    private final UUID userId;
+    private final Long userId;
 
     private boolean authenticated;
 
-    public JwtAuthenticationToken(UUID userId, String email, Collection<? extends GrantedAuthority> authorities) {
+    public JwtAuthenticationToken(Long userId, String email, Collection<? extends GrantedAuthority> authorities) {
         Assert.notEmpty(authorities, "Cannot construct JWT with empty authorities");
 
         this.userId = userId;
@@ -64,7 +64,7 @@ public class JwtAuthenticationToken implements Authentication {
         return email;
     }
 
-    public UUID getUserId() {
+    public Long getUserId() {
         return userId;
     }
 }

@@ -1,18 +1,18 @@
 package com.ryanpmartz.booktrackr.service;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.codahale.metrics.annotation.Timed;
 import com.ryanpmartz.booktrackr.authentication.JwtUtil;
 import com.ryanpmartz.booktrackr.domain.Book;
 import com.ryanpmartz.booktrackr.domain.User;
 import com.ryanpmartz.booktrackr.repository.BookRepository;
 import com.ryanpmartz.booktrackr.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class BookService {
@@ -28,13 +28,13 @@ public class BookService {
 
     @Timed
     @Transactional(readOnly = true)
-    public List<Book> getAllBooksForUser(UUID userId) {
+    public List<Book> getAllBooksForUser(Long userId) {
         return bookRepository.findByUserId(userId);
     }
 
     @Timed
     @Transactional(readOnly = true)
-    public Optional<Book> getBook(UUID bookId) {
+    public Optional<Book> getBook(Long bookId) {
         return Optional.ofNullable(bookRepository.findOne(bookId));
     }
 
@@ -60,7 +60,7 @@ public class BookService {
 
     @Timed
     @Transactional
-    public void deleteBook(UUID bookId) {
+    public void deleteBook(Long bookId) {
         bookRepository.delete(bookId);
     }
 }

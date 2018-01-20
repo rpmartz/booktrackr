@@ -1,30 +1,5 @@
 package com.ryanpmartz.booktrackr.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ryanpmartz.booktrackr.authentication.JwtAuthenticationToken;
-import com.ryanpmartz.booktrackr.authentication.JwtUtil;
-import com.ryanpmartz.booktrackr.domain.Book;
-import com.ryanpmartz.booktrackr.domain.User;
-import com.ryanpmartz.booktrackr.domain.UserRole;
-import com.ryanpmartz.booktrackr.domain.UserRoleEnum;
-import com.ryanpmartz.booktrackr.service.BookService;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.http.MediaType;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
-
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -35,10 +10,35 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.test.web.servlet.MockMvc;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ryanpmartz.booktrackr.authentication.JwtAuthenticationToken;
+import com.ryanpmartz.booktrackr.authentication.JwtUtil;
+import com.ryanpmartz.booktrackr.domain.Book;
+import com.ryanpmartz.booktrackr.domain.User;
+import com.ryanpmartz.booktrackr.domain.UserRole;
+import com.ryanpmartz.booktrackr.domain.UserRoleEnum;
+import com.ryanpmartz.booktrackr.service.BookService;
+
 public class BookControllerTest {
 
-    private static final UUID MISSING_BOOK_ID = UUID.fromString("09c4d7e2-01e5-4dea-a8cd-f3bfc908b316");
-    private static final UUID FIRST_BOOK_ID = UUID.fromString("abee7ba3-8bf7-496c-a19a-de0471fc06c1");
+    private static final Long MISSING_BOOK_ID = 1L;
+    private static final Long FIRST_BOOK_ID = 2L;
 
     private MockMvc mockMvc;
 
@@ -56,7 +56,7 @@ public class BookControllerTest {
         mockMvc = standaloneSetup(bookController).build();
 
         User userOne = new User();
-        userOne.setId(UUID.randomUUID());
+        userOne.setId(99L);
         userOne.setEmail("test@booktrackr.com");
         userOne.setEnabled(true);
 
@@ -78,7 +78,7 @@ public class BookControllerTest {
         firstBook.setUser(userOne);
 
         Book secondBook = new Book();
-        secondBook.setId(UUID.fromString("16299861-a686-4489-ad40-5f3578d6bcd9"));
+        secondBook.setId(7L);
         secondBook.setAuthor("Jane Doe");
         secondBook.setTitle("The Second Book");
         secondBook.setNotes("Read this after the first book");

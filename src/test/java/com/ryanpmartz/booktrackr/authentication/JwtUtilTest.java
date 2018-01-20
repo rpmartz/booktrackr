@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.UUID;
 
 import org.junit.Test;
 
@@ -23,8 +22,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 public class JwtUtilTest {
 
-    private static final UUID USER_ID = UUID.fromString("4db46fba-1ee5-476d-ad95-06a48bc5ae68");
-	private static final String EXPECTED_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QGJvb2t0cmFja3IuY29tIiwidXNlcl9pZCI6IjRkYjQ2ZmJhLTFlZTUtNDc2ZC1hZDk1LTA2YTQ4YmM1YWU2OCIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJlbWFpbCI6InRlc3RAYm9va3RyYWNrci5jb20iLCJleHAiOjE4MzE5NTcyMDB9.BPeq2lkQSAi61iSHZKJzSrmwRHMbJ9kjmT6e1-NJbD4P_GFcmE4Q-jX6eJWmI40ltCzsTkuOL5XGAxRWz-egag";
+    private static final Long USER_ID = 92L;
+    private static final String EXPECTED_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QGJvb2t0cmFja3IuY29tIiwidXNlcl9pZCI6OTIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJlbWFpbCI6InRlc3RAYm9va3RyYWNrci5jb20iLCJleHAiOjE4MzE5NTcyMDB9.40kOn2qof9r1XKYjmIMmSviLy9-JTa--AYxAjQP6_Tc6bIFDrJaFjykdwm_gA2z7KvnYgLxzbENTEnEcn_TkxA";
     private JwtUtil jwtUtil = new JwtUtil("secret");
 
     @Test(expected = IllegalArgumentException.class)

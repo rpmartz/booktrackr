@@ -1,10 +1,10 @@
 package com.ryanpmartz.booktrackr.controller;
 
-import com.codahale.metrics.annotation.Timed;
-import com.ryanpmartz.booktrackr.authentication.JwtAuthenticationToken;
-import com.ryanpmartz.booktrackr.authentication.JwtUtil;
-import com.ryanpmartz.booktrackr.domain.Book;
-import com.ryanpmartz.booktrackr.service.BookService;
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,10 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import com.codahale.metrics.annotation.Timed;
+import com.ryanpmartz.booktrackr.authentication.JwtAuthenticationToken;
+import com.ryanpmartz.booktrackr.authentication.JwtUtil;
+import com.ryanpmartz.booktrackr.domain.Book;
+import com.ryanpmartz.booktrackr.service.BookService;
 
 
 @RestController
@@ -40,7 +41,7 @@ public class BookController {
     }
 
     @RequestMapping(value = "/books/{bookId}", method = RequestMethod.GET)
-    public ResponseEntity<Book> getBook(@PathVariable UUID bookId) {
+    public ResponseEntity<Book> getBook(@PathVariable Long bookId) {
         Optional<Book> bookOptional = bookService.getBook(bookId);
 
         return bookOptional
@@ -66,7 +67,7 @@ public class BookController {
 
     @Timed
     @RequestMapping(value = "/books/{bookId}", method = RequestMethod.PUT)
-    public ResponseEntity<Book> updateBook(@PathVariable UUID bookId, @Valid @RequestBody Book book) {
+    public ResponseEntity<Book> updateBook(@PathVariable Long bookId, @Valid @RequestBody Book book) {
         Optional<Book> existingRecord = bookService.getBook(bookId);
 
         return existingRecord.map(b -> {
@@ -89,7 +90,7 @@ public class BookController {
 
     @Timed
     @RequestMapping(value = "/books/{bookId}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteBook(@PathVariable UUID bookId) {
+    public ResponseEntity<?> deleteBook(@PathVariable Long bookId) {
         Optional<Book> book = bookService.getBook(bookId);
 
         return book.map(b -> {

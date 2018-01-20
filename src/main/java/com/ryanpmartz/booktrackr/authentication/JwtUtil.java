@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +70,7 @@ public class JwtUtil {
             Claims claims = jws.getBody();
 
 
-            UUID userId = UUID.fromString((String) claims.get("user_id"));
+            Long userId = Long.valueOf((Integer) claims.get("user_id"));
             String email = ((String) claims.get("email"));
             Collection<? extends GrantedAuthority> roles = parseRolesFromClaims(claims);
 
