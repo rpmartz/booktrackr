@@ -1,14 +1,15 @@
 package com.ryanpmartz.booktrackr.service;
 
-import com.codahale.metrics.annotation.Timed;
-import com.ryanpmartz.booktrackr.domain.User;
-import com.ryanpmartz.booktrackr.repository.UserRepository;
-import com.ryanpmartz.booktrackr.repository.UserRoleRepository;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import com.codahale.metrics.annotation.Timed;
+import com.ryanpmartz.booktrackr.domain.User;
+import com.ryanpmartz.booktrackr.repository.UserRepository;
+import com.ryanpmartz.booktrackr.repository.UserRoleRepository;
 
 @Service
 public class UserService {
@@ -32,7 +33,8 @@ public class UserService {
     @Transactional
     public User createUser(User user) {
         User savedUser = userRepository.save(user);
-        userRoleRepository.save(savedUser.getRoles());
+
+	    userRoleRepository.saveAll(savedUser.getRoles());
 
         return savedUser;
     }
