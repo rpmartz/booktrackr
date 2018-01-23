@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,8 +35,14 @@ public class BookService {
 
     @Timed
     @Transactional(readOnly = true)
+    @SuppressWarnings("unchecked")
     public Optional<Book> getBook(Long bookId) {
-        return Optional.ofNullable(bookRepository.findOne(bookId));
+	    Book bookForQuery = new Book();
+	    bookForQuery.setId(bookId);
+
+	    Example example = Example.of(bookForQuery);
+
+	    return (Optional<Book>) bookRepository.findOne(example);
     }
 
     /**
@@ -46,10 +53,18 @@ public class BookService {
      */
     @Timed
     @Transactional
-    public Book createBook(Book book) {
-        User user = userRepository.findOne(JwtUtil.tokenFromSecurityContext().getUserId());
-        book.setUser(user);
-        return bookRepository.save(book);
+    public Optional<Book> createBook(Book book) {
+	    User userForExample = new User();
+	    userForExample.setId(JwtUtil.tokenFromSecurityContext().getUserId());
+
+	    Example<User> example = Example.of(userForExample);
+	    Optional<User> userOptional = userRepository.findOne(example);
+	    userOptional.map(u -> {
+		    book.setUser(u);
+		    return Optional.of(bookRepository.save(book));
+	    });
+
+	    return Optional.empty();
     }
 
     @Timed
@@ -61,6 +76,6 @@ public class BookService {
     @Timed
     @Transactional
     public void deleteBook(Long bookId) {
-        bookRepository.delete(bookId);
+	    bookRepository.deleteById(bookId);
     }
 }
