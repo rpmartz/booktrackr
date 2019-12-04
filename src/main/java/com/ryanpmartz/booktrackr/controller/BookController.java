@@ -59,18 +59,16 @@ public class BookController {
     @Timed
     @RequestMapping(value = "/books", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Book> createBook(@Valid @RequestBody Book book) {
-        Book persistedBook = bookService.createBook(book);
+        Optional<Book> persistedBook = bookService.createBook(book);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .contentType(MediaType.APPLICATION_JSON_UTF8).body(persistedBook);
+                .contentType(MediaType.APPLICATION_JSON_UTF8).body(persistedBook.orElseThrow(IllegalArgumentException::new));
     }
 
     @Timed
     @RequestMapping(value = "/books/{bookId}", method = RequestMethod.PUT)
     public ResponseEntity<Book> updateBook(@PathVariable Long bookId, @Valid @RequestBody Book book) {
-        Optional<Book> existingRecord = bookService.getBook(bookId);
-
-        return existingRecord.map(b -> {
+        return bookService.getBook(bookId).map(b -> {
 
             JwtAuthenticationToken jwt = JwtUtil.tokenFromSecurityContext();
             if (!b.getUser().getId().equals(jwt.getUserId())) {
